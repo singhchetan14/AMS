@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #0b192c; /* Good shade of dark blue */
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 2rem;
+}
+
+.card--form {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth__title {
+  color: #0b192c;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.auth__subtitle {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.alert--error {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.form__group {
+  margin-bottom: 1.25rem;
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form__input,
+.form__select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form__input:focus,
+.form__select:focus {
+  border-color: #1a4f8b;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.btn--primary {
+  background-color: #1a4f8b;
+  color: #ffffff;
+}
+
+.btn--primary:hover {
+  background-color: #113662;
+}
+
+.btn--block {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.form__footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.form__link {
+  color: #1a4f8b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form__link:hover {
+  text-decoration: underline;
+}

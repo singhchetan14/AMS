@@ -260,6 +260,12 @@ body {
   border: 1px solid #ffcdd2;
 }
 
+.alert--success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
 .form__group {
   margin-bottom: 1.25rem;
 }

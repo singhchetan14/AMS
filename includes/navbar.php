@@ -40,7 +40,7 @@ if (!isset($currentPage)) {
       </div>
 
       <!-- Signup (Student Only) -->
-      <a href="signup.php"
+      <a href="auth/student/signup.php"
          class="navbar__link navbar__link--cta <?= $currentPage === 'signup' ? 'navbar__link--active' : '' ?>">
         Sign Up
       </a>

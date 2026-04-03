@@ -1,14 +1,4 @@
 <?php
-/**
- * ============================================
- * NAVBAR — Included on every page
- * ============================================
- *
- * Usage: Set $currentPage before including this file.
- *   $currentPage = 'home';
- *   include 'includes/navbar.php';
- */
-
 if (!isset($currentPage)) {
     $currentPage = '';
 }
@@ -18,9 +8,7 @@ if (!isset($currentPage)) {
   <div class="container navbar__inner">
 
     <!-- Brand -->
-    <a href="index.php" class="navbar__brand">
-      AMS
-    </a>
+    <a href="index.php" class="navbar__brand">AMS</a>
 
     <!-- Mobile Toggle -->
     <button class="navbar__toggle" id="navbar-toggle" aria-label="Toggle navigation">
@@ -39,10 +27,19 @@ if (!isset($currentPage)) {
          class="navbar__link <?= $currentPage === 'about' ? 'navbar__link--active' : '' ?>">
         About
       </a>
-      <a href="login.php"
-         class="navbar__link <?= $currentPage === 'login' ? 'navbar__link--active' : '' ?>">
-        Login
-      </a>
+
+      <!-- Login Dropdown -->
+      <div class="navbar__dropdown">
+        <button class="navbar__link navbar__dropdown-btn" id="login-dropdown-btn">
+          Login <span class="navbar__arrow">&#9662;</span>
+        </button>
+        <div class="navbar__dropdown-menu" id="login-dropdown-menu">
+          <a href="auth/student/login.php" class="navbar__dropdown-item">Student Login</a>
+          <a href="auth/teacher/login.php" class="navbar__dropdown-item">Teacher Login</a>
+        </div>
+      </div>
+
+      <!-- Signup (Student Only) -->
       <a href="signup.php"
          class="navbar__link navbar__link--cta <?= $currentPage === 'signup' ? 'navbar__link--active' : '' ?>">
         Sign Up

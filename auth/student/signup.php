@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Invalid email format.";
     } elseif (strlen($password) < 6) {
         $error = "Password must be at least 6 characters.";
+    } elseif ($password !== $confirm_password) {
+        $error = "Passwords do not match.";
     } else {
         // Check if email already exists
         $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");

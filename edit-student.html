@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Student | Academic Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Page-scoped styling to match the screenshot (does not affect other pages) */
+      body.edit-student-page {
+        background: #0d1520;
+      }
+
+      .edit-student-page .edit-student-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 44px 20px;
+      }
+
+      .edit-student-page .edit-card {
+        width: min(920px, 100%);
+        background: #162035;
+        border-radius: 16px;
+        border: 1px solid #1e2d45;
+        padding: 32px;
+        box-shadow: 0 14px 46px rgba(0, 0, 0, 0.55);
+      }
+
+      .edit-student-page .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #ffffff;
+        text-decoration: none;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        margin-bottom: 28px;
+      }
+
+      .edit-student-page .back-link svg {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 auto;
+      }
+
+      .edit-student-page .edit-title {
+        margin: 0 0 26px;
+        font-size: 20px;
+        font-weight: 400;
+        color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      .edit-student-page .form-field {
+        margin-bottom: 24px;
+      }
+
+      .edit-student-page .form-field label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: 400;
+        color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      .edit-student-page .form-field input {
+        width: 100%;
+        height: 52px;
+        box-sizing: border-box;
+        background: #1a2d45;
+        border: 1px solid #2a4060;
+        border-radius: 8px;
+        padding: 14px 16px;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 400;
+        outline: none;
+        box-shadow: none;
+        transition: border-color 0.15s ease;
+      }
+
+      .edit-student-page .form-field input:focus {
+        border-color: #3a6090;
+      }
+
+      .edit-student-page .btn-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 26px;
+      }
+
+      .edit-student-page .save-btn {
+        border: none;
+        border-radius: 50px;
+        padding: 12px 34px;
+        min-width: 240px;
+        background: linear-gradient(180deg, #1a6fe8 0%, #1558c0 100%);
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 400;
+        cursor: pointer;
+        transition: opacity 0.15s ease;
+      }
+
+      .edit-student-page .save-btn:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .edit-student-page .save-btn:not(:disabled):hover {
+        opacity: 0.92;
+      }
+
+      @media (min-width: 768px) {
+        .edit-student-page .edit-card {
+          padding: 36px 60px 44px;
+        }
+      }
+    </style>
+  </head>
+  <body class="no-sidebar edit-student-page">
+    <div class="edit-student-container">
+      <div class="edit-card">
+        <a href="javascript:history.back()" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 8 8 12 12 16"></polyline>
+            <line x1="16" y1="12" x2="8" y2="12"></line>
+          </svg>
+          Back
+        </a>
+
+        <h2 class="edit-title">Edit Student</h2>
+
+        <div class="form-field">
+          <label for="studentName">Student Name</label>
+          <input id="studentName" type="text" autocomplete="off" />
+        </div>
+
+        <div class="form-field">
+          <label for="studentScore">Score</label>
+          <input id="studentScore" type="text" autocomplete="off" />
+        </div>
+
+        <div class="form-field" style="margin-bottom: 34px;">
+          <label for="studentStatus">Status</label>
+          <input id="studentStatus" type="text" autocomplete="off" />
+        </div>
+
+        <div class="btn-container">
+          <button id="saveBtn" class="save-btn" disabled>Save Changes</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const nameInput = document.getElementById("studentName");
+        const scoreInput = document.getElementById("studentScore");
+        const statusInput = document.getElementById("studentStatus");
+        const saveBtn = document.getElementById("saveBtn");
+
+        function validateForm() {
+          const isValid =
+            nameInput.value.trim() !== "" &&
+            scoreInput.value.trim() !== "" &&
+            statusInput.value.trim() !== "";
+
+          saveBtn.disabled = !isValid;
+        }
+
+        nameInput.addEventListener("input", validateForm);
+        scoreInput.addEventListener("input", validateForm);
+        statusInput.addEventListener("input", validateForm);
+
+        validateForm();
+      })();
+    </script>
+  </body>
+</html>

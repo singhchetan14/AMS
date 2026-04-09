@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
+        // password_verify checks against the hashed password stored in db
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_email'] = $user['email'];
@@ -39,14 +40,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <?php
   $currentPage = 'login';
+  $basePath = '../../';
   include '../../includes/navbar.php';
   ?>
 
-  <section class="auth" id="auth-login">
+  <section class="auth">
     <div class="card card--form">
       <div class="auth__header">
         <h1 class="auth__title">Student Login</h1>
-        <p class="auth__subtitle">Sign in to your student account</p>
+        <p class="auth__subtitle">Enter your email and password to access your account</p>
       </div>
 
       <?php if ($error): ?>
@@ -55,29 +57,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <form method="POST">
         <div class="form__group">
-          <label class="form__label">Email Address</label>
-          <input type="email" name="email" class="form__input" placeholder="you@example.com" required>
+          <label class="form__label"><span class="form__label-icon">&#9993;</span> Email Address</label>
+          <input type="email" name="email" class="form__input" placeholder="Email" required>
         </div>
 
         <div class="form__group">
-          <label class="form__label">Password</label>
-          <input type="password" name="password" class="form__input" placeholder="Enter your password" required>
+          <label class="form__label"><span class="form__label-icon">&#128274;</span> Password</label>
+          <input type="password" name="password" class="form__input" placeholder="Password" required>
         </div>
 
-        <button type="submit" class="btn btn--primary btn--block">Login</button>
+        <button type="submit" class="btn btn--primary btn--block">Log in</button>
       </form>
 
       <div class="form__footer">
-        <a href="../forgot-password/request.php" class="form__link">Forgot Password?</a>
+        Don't have an account? <a href="signup.php" class="form__link">Sign up</a>
       </div>
       <div class="form__footer">
-        Don't have an account? <a href="signup.php" class="form__link">Sign Up</a>
+        <a href="../forgot-password/request.php" class="form__link">Forgot password?</a>
       </div>
     </div>
   </section>
 
   <?php include '../../includes/footer.php'; ?>
-
   <script src="../../assets/js/script.js"></script>
 </body>
 </html>

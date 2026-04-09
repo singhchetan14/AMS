@@ -18,14 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $confirm_password) {
         $error = "Passwords do not match.";
     } else {
-        // Check if email already exists
         $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
         $stmt->execute([$email]);
 
         if ($stmt->rowCount() > 0) {
             $error = "Email is already registered.";
         } else {
+            // hashing password before storing - never store plain text passwords
             $hashed = password_hash($password, PASSWORD_DEFAULT);
+            // role is hardcoded to 'student' here, teachers are added by admin only
             $stmt = $pdo->prepare("INSERT INTO users (email, password, role) VALUES (?, ?, 'student')");
 
             if ($stmt->execute([$email, $hashed])) {
@@ -49,14 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <?php
   $currentPage = 'signup';
+  $basePath = '../../';
   include '../../includes/navbar.php';
   ?>
 
-  <section class="auth" id="auth-signup">
+  <section class="auth">
     <div class="card card--form">
       <div class="auth__header">
-        <h1 class="auth__title">Student Sign Up</h1>
-        <p class="auth__subtitle">Create your student account</p>
+        <h1 class="auth__title">Create an account</h1>
+        <p class="auth__subtitle">Sign up as a student</p>
       </div>
 
       <?php if ($error): ?>
@@ -69,31 +71,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <form method="POST">
         <div class="form__group">
-          <label class="form__label">Email Address</label>
-          <input type="email" name="email" class="form__input" placeholder="you@example.com" required>
+          <label class="form__label"><span class="form__label-icon">&#9993;</span> Email Address</label>
+          <input type="email" name="email" class="form__input" placeholder="Email" required>
         </div>
 
         <div class="form__group">
-          <label class="form__label">Password</label>
+          <label class="form__label"><span class="form__label-icon">&#128274;</span> Password</label>
           <input type="password" name="password" class="form__input" placeholder="Min 6 characters" required>
         </div>
 
         <div class="form__group">
-          <label class="form__label">Confirm Password</label>
+          <label class="form__label"><span class="form__label-icon">&#128274;</span> Confirm Password</label>
           <input type="password" name="confirm_password" class="form__input" placeholder="Re-enter password" required>
         </div>
 
-        <button type="submit" class="btn btn--primary btn--block">Create Account</button>
+        <button type="submit" class="btn btn--primary btn--block">Sign up</button>
       </form>
 
       <div class="form__footer">
-        Already have an account? <a href="login.php" class="form__link">Login</a>
+        Already have an account? <a href="login.php" class="form__link">Log in</a>
       </div>
     </div>
   </section>
 
   <?php include '../../includes/footer.php'; ?>
-
   <script src="../../assets/js/script.js"></script>
 </body>
 </html>

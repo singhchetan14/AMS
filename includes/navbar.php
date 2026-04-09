@@ -1,6 +1,12 @@
 <?php
+// $basePath is set by each page before including this file
+// pages in root set it to '' (or dont set it), nested pages like auth/student/login.php set it to '../../'
+// this makes sure navbar links always point to the correct path regardless of folder depth
 if (!isset($currentPage)) {
     $currentPage = '';
+}
+if (!isset($basePath)) {
+    $basePath = '';
 }
 ?>
 
@@ -19,11 +25,11 @@ if (!isset($currentPage)) {
 
     <!-- Links -->
     <div class="navbar__links" id="navbar-links">
-      <a href="index.php"
+      <a href="<?= $basePath ?>index.php"
          class="navbar__link <?= $currentPage === 'home' ? 'navbar__link--active' : '' ?>">
         Home
       </a>
-      <a href="about.php"
+      <a href="<?= $basePath ?>about.php"
          class="navbar__link <?= $currentPage === 'about' ? 'navbar__link--active' : '' ?>">
         About
       </a>
@@ -34,13 +40,13 @@ if (!isset($currentPage)) {
           Login <span class="navbar__arrow">&#9662;</span>
         </button>
         <div class="navbar__dropdown-menu" id="login-dropdown-menu">
-          <a href="auth/student/login.php" class="navbar__dropdown-item">Student Login</a>
-          <a href="auth/teacher/login.php" class="navbar__dropdown-item">Teacher Login</a>
+          <a href="<?= $basePath ?>auth/student/login.php" class="navbar__dropdown-item">Student Login</a>
+          <a href="<?= $basePath ?>auth/teacher/login.php" class="navbar__dropdown-item">Teacher Login</a>
         </div>
       </div>
 
       <!-- Signup (Student Only) -->
-      <a href="auth/student/signup.php"
+      <a href="<?= $basePath ?>auth/student/signup.php"
          class="navbar__link navbar__link--cta <?= $currentPage === 'signup' ? 'navbar__link--active' : '' ?>">
         Sign Up
       </a>

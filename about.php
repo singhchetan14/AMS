@@ -3,6 +3,9 @@
 <head>
 <title>AMS - About</title>
 
+<!-- css link -->
+<link rel="stylesheet" href="assets/css/style.css">
+
 <style>
 body {
     margin: 0;
@@ -131,16 +134,17 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-/* DEVELOPERS - 3 rows × 2 columns */
+/* DEVELOPERS */
 .dev-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px; 
     margin-top: 20px;
-    justify-items: center; /* center each box */
+    justify-items: center;
 }
+
 .dev {
-    background: #626C7B  ;
+    background: #626C7B;
     padding: 10px 18px;
     border-radius: 20px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.3);
@@ -163,7 +167,6 @@ body {
         <div class="dropdown">
             <a href="#">Login</a>
             <div class="dropdown-content">
-                <a href="auth/login.php">Admin</a>
                 <a href="#">Teacher</a>
                 <a href="#">Student</a>
             </div>
@@ -197,8 +200,6 @@ Our main goal is to reduce manual work and provide a digital solution for handli
 </div>
 
 <!-- VISION -->
-
-
 <div class="vision">
 <h2>Our Vision</h2>
     Our vision is to simplify and enhance academic management through smart, secure, and </br> user-friendly technology, creating a better experience for students, teachers, and </br> institutions.

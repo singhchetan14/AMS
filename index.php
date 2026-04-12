@@ -3,7 +3,12 @@
 <html>
 <head>
 <title>AMS - Home</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<!--  CSS LINK -->
+<link rel="stylesheet" href="assets/css/style.css">
+
 <style>
 body {
 margin: 0;
@@ -138,17 +143,19 @@ line-height: 1.2;
 <div class="nav-links">
 <a href="index.php">Home</a>
 <a href="about.php">About</a>
+
 <div class="dropdown">
 <a href="#">Login</a>
 <div class="dropdown-content">
-<a href="auth/login.php">Admin</a>
 <a href="#">Teacher</a>
 <a href="#">Student</a>
 </div>
 </div>
+
 <a href="#">Sign Up</a>
 </div>
 </div>
+
 <!-- MAIN -->
 <div class="container">
 <div class="card">

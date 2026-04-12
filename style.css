@@ -1,0 +1,209 @@
+/* ===== BASE LAYOUT ===== */
+
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f4f6f9;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #1e293b;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  transition: 0.3s;
+}
+
+.sidebar.hide {
+  left: -240px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 14px;
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  background: #334155;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  height: 60px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-left: 240px;
+  transition: 0.3s;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  margin-left: 240px;
+  padding: 20px;
+  transition: 0.3s;
+}
+
+.main.full {
+  margin-left: 0;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: white;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+/* ===== PROFILE PAGE ===== */
+.main .card {
+  max-width: 400px;
+  background: #1e3a5f;
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border: 2px solid #000;
+}
+
+.main .card p {
+  margin: 12px 0;
+  font-size: 15px;
+}
+
+.main button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid #000;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.main button:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ===== MOBILE UI ===== */
+
+@media (max-width: 480px) {
+  /* GENERAL */
+  body {
+    font-size: 14px;
+  }
+
+  /* SIDEBAR (hidden by default) */
+  .sidebar {
+    left: -240px;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    margin-left: 0;
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* MAIN */
+  .main {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  /* CARDS */
+  .card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: none;
+  }
+
+  /* PROFILE CARD */
+  .main .card {
+    border-radius: 0;
+    border: none;
+  }
+
+  /* TEXT */
+  .main .card p {
+    font-size: 16px;
+  }
+
+  /* BUTTONS */
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  /* TABLE SCROLL */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* INPUTS */
+  input,
+  select {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  /* DASHBOARD STACK */
+  .card-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-row .card {
+    width: 100%;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-links a {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  /* HERO SECTION */
+  .container .card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .image {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  /* PROFILE IMAGE */
+  .profile-img {
+    width: 90px;
+    height: 90px;
+  }
+}

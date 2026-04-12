@@ -1,0 +1,268 @@
+================================================================
+FULLSTACK DEVELOPMENT — MODULE 2: JAVASCRIPT & PHP BACKEND
+================================================================
+Course: Fullstack Development
+Instructor: Sarah Johnson
+================================================================
+
+JAVASCRIPT — THE LANGUAGE OF THE WEB
+--------------------------------------
+JavaScript (JS) makes webpages INTERACTIVE and DYNAMIC.
+Without JS, websites would be static and non-responsive.
+
+JS runs directly in the browser — no installation needed.
+
+WHERE TO ADD JAVASCRIPT:
+
+  1. Inline   : <button onclick="alert('Hi!')">Click</button>
+  2. Internal : <script> tag at bottom of HTML body
+  3. External : <script src="app.js"></script>  (BEST PRACTICE)
+
+----------------------------------------------------------------
+JAVASCRIPT BASICS
+----------------------------------------------------------------
+
+VARIABLES (store data):
+  let   name = "Alice";      // can be reassigned
+  const age  = 25;           // cannot be reassigned
+  var   city = "Kathmandu";  // old way — avoid using
+
+DATA TYPES:
+  String  : "Hello", 'World'
+  Number  : 42, 3.14, -10
+  Boolean : true, false
+  Array   : [1, 2, 3, "apple"]
+  Object  : { name: "Alice", age: 25 }
+  Null    : null   (intentionally empty)
+  Undefined: undefined (variable declared but not assigned)
+
+OPERATORS:
+  Arithmetic : + - * / % (modulus) ** (power)
+  Comparison : == != === !== < > <= >=
+  Logical    : && (AND)  || (OR)  ! (NOT)
+
+  NOTE: Always use === (strict equal) not == (loose equal)
+    "5" == 5  → true   (compares value only, ignores type)
+    "5" === 5 → false  (compares value AND type — correct!)
+
+IF / ELSE:
+  if (age >= 18) {
+      console.log("Adult");
+  } else if (age >= 13) {
+      console.log("Teenager");
+  } else {
+      console.log("Child");
+  }
+
+LOOPS:
+  // For loop
+  for (let i = 0; i < 5; i++) {
+      console.log(i);  // prints 0, 1, 2, 3, 4
+  }
+
+  // While loop
+  let count = 0;
+  while (count < 3) {
+      console.log(count);
+      count++;
+  }
+
+  // Loop through an array
+  const fruits = ["apple", "banana", "mango"];
+  fruits.forEach(function(fruit) {
+      console.log(fruit);
+  });
+
+FUNCTIONS:
+  // Regular function
+  function greet(name) {
+      return "Hello, " + name + "!";
+  }
+  console.log(greet("Sarah"));  // → Hello, Sarah!
+
+  // Arrow function (modern, shorter)
+  const greet = (name) => "Hello, " + name + "!";
+
+ARRAYS — USEFUL METHODS:
+  const nums = [3, 1, 4, 1, 5, 9];
+
+  nums.push(7)         // Add to end
+  nums.pop()           // Remove from end
+  nums.length          // Get count
+  nums.includes(4)     // Check if value exists → true
+  nums.indexOf(5)      // Get position → 4
+  nums.sort()          // Sort in place
+  nums.reverse()       // Reverse in place
+  nums.map(n => n * 2) // Create new array [6,2,8,2,10,18]
+  nums.filter(n => n > 3) // Filter → [4, 5, 9, 7]
+
+----------------------------------------------------------------
+DOM MANIPULATION — INTERACTING WITH HTML
+----------------------------------------------------------------
+
+DOM = Document Object Model
+JS can read and change any HTML element on the page.
+
+SELECTING ELEMENTS:
+  document.getElementById("myId")        // by id
+  document.querySelector(".myClass")     // first match
+  document.querySelectorAll("p")         // all <p> tags
+
+CHANGING CONTENT:
+  const title = document.getElementById("title");
+  title.textContent = "New Title";       // change text
+  title.innerHTML   = "<b>Bold</b>";     // change HTML inside
+  title.style.color = "red";            // change style
+
+ADDING/REMOVING CSS CLASSES:
+  element.classList.add("active");
+  element.classList.remove("active");
+  element.classList.toggle("active");    // adds if absent, removes if present
+
+EVENT LISTENERS — REACT TO USER ACTIONS:
+  const btn = document.getElementById("myBtn");
+
+  btn.addEventListener("click", function() {
+      alert("Button clicked!");
+  });
+
+  // Other events:
+  "mouseover"   — when mouse enters an element
+  "mouseout"    — when mouse leaves an element
+  "keydown"     — when user presses a key
+  "submit"      — when a form is submitted
+  "input"       — when input value changes
+  "load"        — when page finishes loading
+
+FETCH API — GET DATA FROM SERVER WITHOUT RELOADING:
+  fetch("api/get_students.php")
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+          // Update the page with the data
+      })
+      .catch(error => {
+          console.log("Error:", error);
+      });
+
+----------------------------------------------------------------
+PHP BACKEND FUNDAMENTALS
+----------------------------------------------------------------
+
+PHP runs on the SERVER and generates HTML dynamically.
+It connects to the database and sends data to the frontend.
+
+PHP FILE EXTENSION: .php
+PHP code goes between: <?php  and  ?>
+
+VARIABLES & OUTPUT:
+  <?php
+      $name = "Sarah";
+      $age  = 30;
+      echo "Hello, " . $name;    // Hello, Sarah
+      echo "<p>Age: $age</p>";   // HTML output
+  ?>
+
+ARRAYS:
+  $courses = ["Ethical Hacking", "Fullstack", "Collaboration"];
+  echo $courses[0];   // Ethical Hacking
+
+  // Associative array (like an object)
+  $student = [
+      "name"  => "Alice",
+      "grade" => 90,
+      "group" => "A"
+  ];
+  echo $student["name"];  // Alice
+
+IF/ELSE IN PHP:
+  if ($age >= 18) {
+      echo "Adult";
+  } else {
+      echo "Minor";
+  }
+
+FOREACH LOOP (Most used in PHP):
+  foreach ($courses as $course) {
+      echo "<li>" . htmlspecialchars($course) . "</li>";
+  }
+
+CONNECTING TO MYSQL DATABASE (PDO):
+  $pdo = new PDO("mysql:host=localhost;dbname=ams_db", "root", "");
+  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+RUNNING A QUERY (Safe Prepared Statement):
+  $stmt = $pdo->prepare("SELECT * FROM students WHERE group_name = ?");
+  $stmt->execute(["A"]);
+  $students = $stmt->fetchAll();
+
+  foreach ($students as $student) {
+      echo $student["full_name"];
+  }
+
+HANDLING FORM DATA:
+  // HTML form sends POST data
+  $name  = trim($_POST["name"]);     // trim removes whitespace
+  $email = trim($_POST["email"]);
+
+  // ALWAYS sanitize before using
+  $name = htmlspecialchars($name);
+
+PHP SESSIONS (Remember logged-in user):
+  session_start();                          // MUST be first line
+  $_SESSION["teacher_id"]   = 1;
+  $_SESSION["teacher_name"] = "Sarah";
+
+  // On next page load:
+  echo $_SESSION["teacher_name"];           // Sarah
+
+  // To logout:
+  session_destroy();
+
+----------------------------------------------------------------
+CONNECTING FRONTEND TO BACKEND (Full Example)
+----------------------------------------------------------------
+
+FRONTEND (fetch call in JavaScript):
+  fetch("api/get_students.php")
+      .then(res => res.json())
+      .then(data => {
+          data.forEach(student => {
+              const li = document.createElement("li");
+              li.textContent = student.full_name;
+              document.getElementById("list").appendChild(li);
+          });
+      });
+
+BACKEND (api/get_students.php):
+  <?php
+  session_start();
+  require_once "../config/db.php";
+  header("Content-Type: application/json");
+
+  $stmt = $pdo->prepare("SELECT full_name, group_name FROM students");
+  $stmt->execute();
+  $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  echo json_encode($students);
+  ?>
+
+----------------------------------------------------------------
+TOOLS & SETUP
+----------------------------------------------------------------
+
+CODE EDITOR    : VS Code (free — recommended)
+BROWSER        : Chrome (best developer tools)
+LOCAL SERVER   : XAMPP (includes PHP + MySQL + Apache)
+VERSION CONTROL: Git + GitHub
+
+CHROME DEVTOOLS (Press F12):
+  Console — see JS errors and output
+  Network — see API requests and responses
+  Elements — inspect and edit HTML/CSS live
+  Sources  — debug JavaScript code
+
+================================================================
+END OF MODULE 2
+Next: Module 3 — Building a Complete CRUD Application
+================================================================

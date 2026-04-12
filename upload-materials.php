@@ -42,6 +42,27 @@ $error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload Materials | Academic Management System</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        #toast {
+            position: fixed;
+            top: 28px;
+            right: 28px;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.35s ease;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        #toast.show { opacity: 1; transform: translateY(0); }
+        #toast.t-success { background: #0f2e1a; border: 1px solid rgba(0,200,80,0.45); }
+        #toast.t-error   { background: #2e0f0f; border: 1px solid rgba(255,80,80,0.45); }
+    </style>
 </head>
 <body class="no-sidebar">
     <div class="layout" style="min-height: 100vh; background-color: #0d1b2a; display: flex; align-items: center; justify-content: center; padding: 20px;">
@@ -59,15 +80,7 @@ $error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
 
                 <h2 class="section-title" style="margin-top: 0;">Upload Course Materials</h2>
 
-                <?php if ($success): ?>
-                    <div style="background: rgba(0, 255, 0, 0.1); border: 1px solid rgba(0, 255, 0, 0.3); padding: 12px; border-radius: 8px; margin-bottom: 20px; color: #90ee90;">
-                        ✓ Material uploaded successfully!
-                    </div>
-                <?php elseif ($error): ?>
-                    <div style="background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); padding: 12px; border-radius: 8px; margin-bottom: 20px; color: #ff6b6b;">
-                        ✗ Error: <?= $error ?>
-                    </div>
-                <?php endif; ?>
+                <!-- Toast shown via JS below -->
 
                 <form method="POST" action="actions/do_upload_material.php" enctype="multipart/form-data">
                     
@@ -91,8 +104,8 @@ $error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
                     </div>
 
                     <div class="form-group custom-form-group">
-                        <label for="file-input">File (PDF, DOCX, PPTX)</label>
-                        <input id="file-input" type="file" name="file" class="custom-input" accept=".pdf,.docx,.pptx" required />
+                        <label for="file-input">File (PDF, DOCX, PPTX, TXT)</label>
+                        <input id="file-input" type="file" name="file" class="custom-input" accept=".pdf,.docx,.pptx,.txt" required />
                     </div>
 
                     <button type="submit" style="background-color: #1967d2; color: #fff; border: none; border-radius: 20px; padding: 10px 24px; font-size: 14px; cursor: pointer; font-family: sans-serif;">
@@ -118,7 +131,27 @@ $error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
             </div>
         </main>
     </div>
+    <div id="toast"></div>
 
+    <script>
+        function showToast(message, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = message;
+            // Ensure any existing classes are cleared before adding new ones
+            t.className = 'show ' + (type === 'success' ? 't-success' : 't-error');
+            setTimeout(() => {
+                t.classList.remove('show');
+            }, 3500);
+        }
+
+        <?php if ($success): ?>
+            showToast('✓ Material uploaded successfully!', 'success');
+            history.replaceState(null, '', 'upload-materials.php');
+        <?php elseif ($error): ?>
+            showToast('✗ <?= addslashes($error) ?>', 'error');
+            history.replaceState(null, '', 'upload-materials.php');
+        <?php endif; ?>
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,144 @@
+================================================================
+ETHICAL HACKING — MODULE 1: INTRODUCTION & FUNDAMENTALS
+================================================================
+Course: Ethical Hacking
+Instructor: Sarah Johnson
+Department: Computer Science
+================================================================
+
+WHAT IS ETHICAL HACKING?
+--------------------------
+Ethical hacking means legally breaking into computers and devices
+to test an organization's defenses. It is also called:
+  - Penetration Testing (Pen Testing)
+  - White-Hat Hacking
+  - Authorized Security Testing
+
+The goal is to find security weaknesses BEFORE malicious hackers do.
+
+----------------------------------------------------------------
+TYPES OF HACKERS
+----------------------------------------------------------------
+
+1. WHITE HAT (Ethical Hacker)
+   - Has permission from the organization
+   - Reports vulnerabilities responsibly
+   - Works to improve security
+   - Example: A company hiring a security firm to test their system
+
+2. BLACK HAT (Malicious Hacker)
+   - No permission — acts illegally
+   - Steals data, causes damage, demands ransom
+   - Motivated by money, revenge, or fame
+
+3. GREY HAT
+   - Somewhere in between
+   - May hack without permission but report findings
+   - Still illegal even if no damage is done
+
+----------------------------------------------------------------
+THE 5 PHASES OF ETHICAL HACKING
+----------------------------------------------------------------
+
+PHASE 1 — RECONNAISSANCE (Information Gathering)
+  Collect as much information as possible about the target.
+  Tools: WHOIS, Nmap, Google Dorking, Shodan
+  Types:
+    - Passive: No direct contact with target (reading public info)
+    - Active: Direct interaction with target systems
+
+PHASE 2 — SCANNING
+  Identify open ports, services, and vulnerabilities.
+  Tools: Nmap, Nessus, OpenVAS
+  What we look for:
+    - Open ports (e.g. Port 80 = HTTP, Port 22 = SSH)
+    - Running services and their versions
+    - Operating system details
+
+PHASE 3 — GAINING ACCESS (Exploitation)
+  Use found vulnerabilities to get into the system.
+  Methods: SQL Injection, Buffer Overflow, Password Cracking
+  Tools: Metasploit, Hydra, SQLMap
+
+PHASE 4 — MAINTAINING ACCESS
+  Simulate what a real attacker would do after getting in.
+  Methods: Installing backdoors, rootkits
+  Purpose: To show how long an attacker could stay undetected
+
+PHASE 5 — COVERING TRACKS
+  Clear logs and evidence of the attack.
+  Purpose: To test if the target's monitoring can detect intrusion
+
+----------------------------------------------------------------
+KEY TERMS TO KNOW
+----------------------------------------------------------------
+
+VULNERABILITY   : A weakness in a system that can be exploited
+EXPLOIT         : Code or technique that takes advantage of a flaw
+PAYLOAD         : The actual malicious action (e.g. open a shell)
+ZERO-DAY        : A vulnerability unknown to the vendor/public
+SOCIAL ENGINEERING : Tricking people instead of hacking machines
+FIREWALL        : A system that filters network traffic
+IDS/IPS         : Intrusion Detection/Prevention System
+
+----------------------------------------------------------------
+COMMON ATTACK TYPES
+----------------------------------------------------------------
+
+1. PHISHING
+   Sending fake emails pretending to be legitimate organizations.
+   Goal: Steal login credentials or install malware.
+
+2. SQL INJECTION
+   Inserting malicious SQL code into a web form or URL.
+   Example: Entering ' OR 1=1 -- in a login field to bypass auth.
+
+3. MAN-IN-THE-MIDDLE (MITM)
+   Intercepting communication between two parties.
+   Common on unsecured public Wi-Fi.
+
+4. DENIAL OF SERVICE (DoS/DDoS)
+   Flooding a server with so many requests it crashes.
+   DDoS = Distributed (many machines attacking at once).
+
+5. BRUTE FORCE
+   Trying every possible password combination until one works.
+   Defense: Account lockout after X failed attempts.
+
+----------------------------------------------------------------
+LEGAL & ETHICAL REQUIREMENTS
+----------------------------------------------------------------
+
+Before any ethical hacking engagement you MUST have:
+
+  [ ] Written permission from the system owner
+  [ ] Clearly defined scope (what is allowed to be tested)
+  [ ] Non-Disclosure Agreement (NDA) signed
+  [ ] Rules of engagement documented
+  [ ] Emergency contact if something goes wrong
+
+WITHOUT PERMISSION = ILLEGAL, even if your intentions are good.
+
+----------------------------------------------------------------
+POPULAR ETHICAL HACKING CERTIFICATIONS
+----------------------------------------------------------------
+
+CEH   — Certified Ethical Hacker (EC-Council)
+OSCP  — Offensive Security Certified Professional
+CPENT — Certified Penetration Testing Professional
+CompTIA Security+ — Entry level security certification
+
+----------------------------------------------------------------
+PRACTICE ENVIRONMENTS (Legal Hacking Labs)
+----------------------------------------------------------------
+
+TryHackMe       : https://tryhackme.com   (beginner friendly)
+HackTheBox      : https://hackthebox.com  (intermediate/advanced)
+VulnHub         : Free downloadable vulnerable VMs
+DVWA            : Damn Vulnerable Web Application (local setup)
+Metasploitable  : Intentionally vulnerable Linux VM
+
+================================================================
+END OF MODULE 1
+Next: Module 2 — Network Scanning and Enumeration
+================================================================

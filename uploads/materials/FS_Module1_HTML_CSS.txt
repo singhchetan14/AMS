@@ -1,0 +1,218 @@
+================================================================
+FULLSTACK DEVELOPMENT — MODULE 1: HTML, CSS & THE WEB
+================================================================
+Course: Fullstack Development
+Instructor: Sarah Johnson
+================================================================
+
+WHAT IS FULLSTACK DEVELOPMENT?
+--------------------------------
+A Fullstack Developer works on BOTH sides of a web application:
+
+  FRONTEND (Client Side)
+    What the user sees and interacts with.
+    Languages: HTML, CSS, JavaScript
+    Runs in: The user's web browser
+
+  BACKEND (Server Side)
+    The logic, database, and server that power the app.
+    Languages: PHP, Python, Node.js, Java
+    Runs on: A web server
+
+  DATABASE
+    Where all data is stored permanently.
+    Examples: MySQL, PostgreSQL, MongoDB
+
+A Fullstack Developer can build a complete web application
+from start to finish on their own.
+
+----------------------------------------------------------------
+HOW THE WEB WORKS (Simple Explanation)
+----------------------------------------------------------------
+
+1. User types a URL in browser (e.g. www.google.com)
+2. Browser sends a REQUEST to Google's server
+3. Google's server processes the request
+4. Server sends back a RESPONSE (HTML, CSS, JS files)
+5. Browser reads the files and RENDERS the page
+6. User sees the finished webpage
+
+This is called the REQUEST-RESPONSE CYCLE.
+
+----------------------------------------------------------------
+HTML — HYPER TEXT MARKUP LANGUAGE
+----------------------------------------------------------------
+
+HTML is the skeleton of every webpage.
+It defines the STRUCTURE and CONTENT.
+
+BASIC HTML DOCUMENT STRUCTURE:
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>My Page</title>
+      <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+      <h1>Hello World</h1>
+      <p>This is a paragraph.</p>
+  </body>
+  </html>
+
+COMMON HTML TAGS:
+
+  HEADINGS    : <h1> to <h6>  (h1 = biggest, h6 = smallest)
+  PARAGRAPH   : <p>text</p>
+  LINK        : <a href="url">Click here</a>
+  IMAGE       : <img src="photo.jpg" alt="description">
+  LIST        : <ul> unordered,  <ol> ordered,  <li> item
+  TABLE       : <table>, <tr>, <th>, <td>
+  FORM        : <form>, <input>, <button>, <select>, <textarea>
+  DIV         : <div> — a block container (most used)
+  SPAN        : <span> — an inline container
+  HEADER      : <header> — top section
+  FOOTER      : <footer> — bottom section
+  NAV         : <nav> — navigation links
+  SECTION     : <section> — a section of content
+  ARTICLE     : <article> — independent content block
+
+HTML ATTRIBUTES:
+  id="name"         — unique identifier for one element
+  class="name"      — shared identifier for multiple elements
+  style="color:red" — inline CSS styling
+  href="url"        — link destination
+  src="file"        — source file for images, scripts
+
+----------------------------------------------------------------
+CSS — CASCADING STYLE SHEETS
+----------------------------------------------------------------
+
+CSS controls how HTML elements LOOK (colors, fonts, layout).
+
+WAYS TO ADD CSS:
+
+  1. Inline    : <p style="color: red;">Text</p>
+  2. Internal  : <style> tag inside <head>
+  3. External  : Separate .css file (BEST PRACTICE)
+
+CSS SYNTAX:
+
+  selector {
+      property: value;
+  }
+
+  Example:
+  h1 {
+      color: blue;
+      font-size: 32px;
+      font-weight: bold;
+  }
+
+CSS SELECTORS:
+
+  Element selector  : p { }          Targets all <p> tags
+  Class selector    : .card { }      Targets class="card"
+  ID selector       : #header { }    Targets id="header"
+  Descendant        : div p { }      Targets <p> inside <div>
+  Hover state       : a:hover { }    When mouse hovers over <a>
+
+COMMON CSS PROPERTIES:
+
+  COLOR & BACKGROUND:
+    color           : Text color (red, #ff0000, rgb(255,0,0))
+    background      : Background color or image
+    opacity         : Transparency (0 = invisible, 1 = solid)
+
+  TEXT:
+    font-size       : Size (16px, 1rem, 1.5em)
+    font-family     : Font name (Arial, sans-serif)
+    font-weight     : Bold (bold, 700, normal, 400)
+    text-align      : Alignment (left, center, right)
+    text-decoration : Underline, none, line-through
+
+  BOX MODEL (every element is a box):
+    width / height  : Size of the element
+    margin          : Space OUTSIDE the element
+    padding         : Space INSIDE the element
+    border          : Line around the element
+    border-radius   : Rounded corners
+
+  DISPLAY & LAYOUT:
+    display: block        Each element on a new line
+    display: inline       Elements sit side by side
+    display: flex         Flexbox layout (most used today)
+    display: grid         Grid layout (for complex layouts)
+    display: none         Hide the element completely
+
+CSS FLEXBOX (QUICK GUIDE):
+
+  .container {
+      display: flex;
+      justify-content: center;    /* Horizontal alignment */
+      align-items: center;        /* Vertical alignment */
+      gap: 20px;                  /* Space between items */
+      flex-wrap: wrap;            /* Wrap to next line if needed */
+  }
+
+  justify-content values:
+    flex-start | flex-end | center | space-between | space-around
+
+  align-items values:
+    flex-start | flex-end | center | stretch
+
+----------------------------------------------------------------
+CSS VARIABLES (Custom Properties)
+----------------------------------------------------------------
+
+Define once, reuse everywhere:
+
+  :root {
+      --primary-color: #3d6fd4;
+      --bg-color: #0a1628;
+      --font-size: 16px;
+  }
+
+  button {
+      background: var(--primary-color);
+      font-size: var(--font-size);
+  }
+
+----------------------------------------------------------------
+RESPONSIVE DESIGN — MEDIA QUERIES
+----------------------------------------------------------------
+
+Make your site look good on all screen sizes:
+
+  /* Default styles for mobile */
+  .card { width: 100%; }
+
+  /* Tablet and above (768px+) */
+  @media (min-width: 768px) {
+      .card { width: 50%; }
+  }
+
+  /* Desktop and above (1024px+) */
+  @media (min-width: 1024px) {
+      .card { width: 33%; }
+  }
+
+----------------------------------------------------------------
+PRACTICAL EXERCISE
+----------------------------------------------------------------
+
+Build a simple profile card with:
+  - A circular profile picture (use border-radius: 50%)
+  - Name as a heading
+  - Short bio in a paragraph
+  - A "Contact Me" button with hover color change
+
+Required files:
+  index.html
+  styles.css
+
+================================================================
+END OF MODULE 1
+Next: Module 2 — JavaScript Fundamentals
+================================================================

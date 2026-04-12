@@ -1,0 +1,254 @@
+================================================================
+COLLABORATION DEVELOPMENT — MODULE 2: TEAMWORK & AGILE
+================================================================
+Course: Collaboration Development
+Instructor: Sarah Johnson
+================================================================
+
+SOFTWARE DEVELOPMENT IS A TEAM SPORT
+--------------------------------------
+Most real-world projects are built by teams, not individuals.
+A typical development team includes:
+
+  FRONTEND DEVELOPER  — Builds the user interface
+  BACKEND DEVELOPER   — Builds the server and database logic
+  UI/UX DESIGNER      — Designs how the app looks and feels
+  QA ENGINEER         — Tests the application for bugs
+  PROJECT MANAGER     — Plans, organizes, and tracks progress
+  DEVOPS ENGINEER     — Manages servers, deployments, pipelines
+
+Good collaboration means everyone can work at the same time
+without breaking each other's work.
+
+----------------------------------------------------------------
+AGILE METHODOLOGY
+----------------------------------------------------------------
+
+Agile is the most popular way to manage software projects.
+It is NOT a tool — it is a MINDSET and set of practices.
+
+CORE IDEA:
+  Instead of planning the entire project up front (and failing
+  when requirements change), Agile works in small cycles
+  called SPRINTS (usually 1-2 weeks each).
+
+THE AGILE MANIFESTO VALUES:
+
+  Individuals and interactions  OVER  processes and tools
+  Working software              OVER  comprehensive documentation
+  Customer collaboration        OVER  contract negotiation
+  Responding to change          OVER  following a plan
+
+----------------------------------------------------------------
+SCRUM (Most Popular Agile Framework)
+----------------------------------------------------------------
+
+ROLES IN SCRUM:
+
+  PRODUCT OWNER
+    Represents the client/stakeholders.
+    Defines WHAT needs to be built and in what priority.
+    Maintains the Product Backlog.
+
+  SCRUM MASTER
+    Facilitates the team.
+    Removes obstacles that slow the team down.
+    Ensures Scrum rules are followed.
+    NOT a manager — more like a coach.
+
+  DEVELOPMENT TEAM
+    3-9 developers who design, build, and test.
+    Self-organizing — they decide HOW to do the work.
+
+SCRUM ARTIFACTS:
+
+  PRODUCT BACKLOG
+    A prioritized list of everything that needs to be built.
+    Written as USER STORIES (see below).
+    Managed by the Product Owner.
+
+  SPRINT BACKLOG
+    The subset of items from the Product Backlog that the
+    team commits to completing in the current sprint.
+
+  INCREMENT
+    The working software produced at the end of each sprint.
+    Must be potentially shippable (deployable to production).
+
+SCRUM EVENTS (CEREMONIES):
+
+  SPRINT PLANNING (Start of sprint — 2-4 hours)
+    Team selects items from Product Backlog to work on.
+    Team estimates effort and creates Sprint Backlog.
+
+  DAILY STANDUP (Every day — max 15 minutes)
+    Each person answers 3 questions:
+      1. What did I do yesterday?
+      2. What will I do today?
+      3. Is there anything blocking me?
+
+  SPRINT REVIEW (End of sprint — 1-2 hours)
+    Team demonstrates what was built.
+    Stakeholders provide feedback.
+
+  SPRINT RETROSPECTIVE (After review — 1 hour)
+    Team discusses:
+      - What went WELL?
+      - What did NOT go well?
+      - What should we IMPROVE next sprint?
+
+----------------------------------------------------------------
+USER STORIES
+----------------------------------------------------------------
+
+A User Story describes a feature from the end-user's perspective.
+Format: "As a [type of user], I want [goal], so that [reason]."
+
+EXAMPLES:
+
+  "As a teacher, I want to upload course materials,
+   so that students can access them from home."
+
+  "As a teacher, I want to view all my students in one table,
+   so that I can quickly check attendance and grades."
+
+  "As a student, I want to see my grade and pass/fail status,
+   so that I know if I need to study more."
+
+ACCEPTANCE CRITERIA (Definition of Done):
+Each story has criteria that must be met to be "done":
+
+  Story: Upload course materials
+  Criteria:
+    [ ] Teacher can select a course from dropdown
+    [ ] Teacher can upload PDF, DOCX, or PPTX files
+    [ ] File size limit is enforced (max 10MB)
+    [ ] Uploaded file appears in Recent Materials list
+    [ ] Error message shown if wrong file type uploaded
+
+STORY POINTS (Effort Estimation):
+  Teams use Fibonacci numbers to estimate effort:
+  1, 2, 3, 5, 8, 13, 21 points
+  (Higher number = more complex / more uncertain)
+
+  1 point  = Trivial task (15 minutes)
+  3 points = Small task (half a day)
+  5 points = Medium task (1-2 days)
+  8 points = Large task (3-5 days)
+  13 points = Very complex (needs to be broken down)
+
+----------------------------------------------------------------
+KANBAN BOARD
+----------------------------------------------------------------
+
+A Kanban board is a visual way to track work progress.
+Every task is a card that moves across columns.
+
+BASIC COLUMNS:
+
+  TO DO          → IN PROGRESS   → REVIEW    → DONE
+  (Backlog)         (Working on)   (Testing)   (Complete)
+
+TOOLS FOR KANBAN:
+  Trello         : Free, simple, great for small teams
+  Jira           : Industry standard for larger teams
+  GitHub Projects: Built into GitHub (free, integrates with code)
+  Notion         : Flexible — works as both docs and board
+  Asana          : Popular for project management
+
+WIP LIMITS (Work In Progress):
+  Each column has a maximum number of tasks allowed.
+  Example: IN PROGRESS limit = 3
+  If 3 tasks are in progress, no new ones can start.
+  This forces the team to finish things before starting new work.
+
+----------------------------------------------------------------
+CODE REVIEW BEST PRACTICES
+----------------------------------------------------------------
+
+Code review is when a teammate reads your code before it gets
+merged. It improves quality and spreads knowledge.
+
+AS AN AUTHOR (person requesting review):
+
+  Keep PRs small     — review 200 lines, not 2000
+  Write a description — explain WHAT and WHY, not HOW
+  Self-review first  — read your own code before submitting
+  Respond quickly    — don't leave reviews waiting
+
+AS A REVIEWER:
+
+  Be kind and respectful — criticize code, not the person
+  Ask questions first   — "Why did you do it this way?"
+  Suggest, don't demand — "Consider using X here" not "Use X"
+  Look for:
+    [ ] Bugs and logic errors
+    [ ] Security issues (SQL injection, XSS, etc.)
+    [ ] Missing error handling
+    [ ] Code duplication (can this be a function?)
+    [ ] Clear naming (is this variable name understandable?)
+    [ ] Missing comments on complex logic
+
+GOOD REVIEW COMMENT:
+  "This query could be vulnerable to SQL injection.
+   Consider using a prepared statement instead.
+   Example: $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');"
+
+BAD REVIEW COMMENT:
+  "This is wrong."
+  "Why would you do this?"
+
+----------------------------------------------------------------
+COMMUNICATION TOOLS
+----------------------------------------------------------------
+
+SLACK / DISCORD / MICROSOFT TEAMS
+  Team messaging — channels organized by topic
+  Best practice: Use threads to keep conversations organized
+
+GITHUB ISSUES
+  Track bugs and feature requests directly in the repo
+  Format:
+    Title: [BUG] Login page not redirecting after success
+    Description: Steps to reproduce, expected behavior, actual behavior
+
+DOCUMENTATION
+  Every project needs:
+    README.md      — Project overview and setup instructions
+    CONTRIBUTING   — How to contribute to the project
+    Code comments  — Explain WHY, not what (the code shows what)
+
+MEETING ETIQUETTE:
+  Come prepared — know the agenda beforehand
+  Camera on     — helps build team connection
+  Mute when not speaking
+  Take notes    — don't rely on memory
+  End with clear action items — WHO does WHAT by WHEN
+
+----------------------------------------------------------------
+SUMMARY: DAILY WORKFLOW ON A REAL TEAM
+----------------------------------------------------------------
+
+START OF DAY:
+  1. git pull origin develop         (get latest code)
+  2. Check Kanban board for tasks
+  3. Attend Daily Standup (15 min)
+  4. Pick up task, create new branch
+
+DURING THE DAY:
+  5. Code in small increments
+  6. Commit often (every logical chunk)
+  7. Push branch to GitHub at end of session
+
+END OF SPRINT:
+  8. Open Pull Request on GitHub
+  9. Request review from teammate
+  10. Address review comments
+  11. PR merged into develop
+  12. Attend Sprint Review & Retrospective
+  13. Start the next sprint!
+
+================================================================
+END OF MODULE 2
+Next: Module 3 — CI/CD Pipelines and Automated Testing
+================================================================

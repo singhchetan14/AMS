@@ -1,0 +1,433 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0d1b2e;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+}
+
+#sidebar {
+  width: 200px;
+  min-height: 100vh;
+  background-color: #112240;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+#sidebar h2 {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+#sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #8fa3be;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+
+#sidebar a:hover {
+  background-color: #1a2f4a;
+  color: white;
+}
+
+#sidebar a.active {
+  background-color: #1a2f4a;
+  color: white;
+}
+
+#main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 1px solid #1a2f4a;
+}
+
+#topbar h2 {
+  font-size: 20px;
+}
+
+#topbar p {
+  color: #8fa3be;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+#avatar {
+  background-color: #1a2f4a;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#content {
+  padding: 30px;
+}
+
+#boxes {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.box {
+  background-color: #1a2f4a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 230px;
+  height: 100px;
+}
+
+.box p {
+  font-size: 14px;
+}
+
+#course-list {
+  background-color: #1a2f4a;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#course-list > p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #243a56;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #8fa3be;
+}
+
+.row span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.row button {
+  background-color: #1a2f4a;
+  color: #8fa3be;
+  border: 1px solid #334d6e;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.row button:hover {
+  background-color: #2d4768;
+  color: white;
+}
+
+.tag {
+  color: #8fa3be;
+  font-size: 13px;
+}
+
+.card {
+  background-color: #1a2f4a;
+  padding: 25px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.card h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+table th {
+  background-color: #243a56;
+  padding: 12px;
+  color: #8fa3be;
+  font-weight: normal;
+  text-align: center;
+}
+
+table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #243a56;
+}
+
+#profile-card {
+  background-color: #1a2f4a;
+  padding: 30px;
+  border-radius: 12px;
+  width: 500px;
+}
+
+#profile-card h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+#pic-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+#pic {
+  width: 90px;
+  height: 90px;
+  background-color: #8fa3be;
+  border-radius: 50%;
+}
+
+#change-photo-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2d5fc4;
+  color: white;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+#change-photo-btn:hover {
+  background-color: #3a6fd8;
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+.field label {
+  font-size: 13px;
+  color: white;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.field input {
+  width: 100%;
+  padding: 10px 14px;
+  background-color: #6b7f97;
+  border: none;
+  border-radius: 20px;
+  color: #0d1b2e;
+  font-size: 14px;
+}
+
+#update-btn {
+  background-color: #2d5fc4;
+  color: white;
+  border: none;
+  padding: 9px 28px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 15px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+#update-btn:hover {
+  background-color: #3a6fd8;
+}
+
+#logout-btn {
+  background-color: #2d5fc4;
+  color: white;
+  border: none;
+  padding: 9px 28px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  display: block;
+}
+
+#logout-btn:hover {
+  background-color: #3a6fd8;
+}
+
+#profile-center {
+  display: flex;
+  justify-content: center;
+}
+
+#materials-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+#back-btn {
+  background-color: #243a56;
+  color: #8fa3be;
+  border: 1px solid #334d6e;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+#back-btn:hover {
+  background-color: #2d4768;
+  color: white;
+}
+
+.material-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background-color: #243a56;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.material-icon {
+  color: #8fa3be;
+  margin-top: 2px;
+}
+
+.material-filename {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.material-meta {
+  color: #8fa3be;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+#no-materials {
+  color: #8fa3be;
+  font-size: 14px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.fail-row td {
+  color: #e05c5c;
+}
+
+#login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+#login-card {
+  background-color: #1a2f4a;
+  padding: 40px;
+  border-radius: 12px;
+  width: 400px;
+}
+
+#login-card h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+#login-card p {
+  color: #8fa3be;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+#login-btn {
+  background-color: #2d5fc4;
+  color: white;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+}
+
+#login-btn:hover {
+  background-color: #3a6fd8;
+}
+
+.course-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background-color: #243a56;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.course-card-icon {
+  color: #8fa3be;
+  margin-top: 3px;
+}
+
+.course-card-name {
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.course-card-code {
+  color: #4a9eda;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.course-card-desc {
+  color: #8fa3be;
+  font-size: 12px;
+}
+
+#no-courses {
+  color: #8fa3be;
+  font-size: 14px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.box h2 {
+  color: white;
+  font-size: 28px;
+  margin-top: 10px;
+}

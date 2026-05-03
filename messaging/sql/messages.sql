@@ -1,0 +1,1 @@
+-- messages table for the messaging feature

@@ -1,0 +1,264 @@
+================================================================
+COLLABORATION DEVELOPMENT — MODULE 1: GIT & VERSION CONTROL
+================================================================
+Course: Collaboration Development
+Instructor: Sarah Johnson
+================================================================
+
+WHY DO TEAMS NEED VERSION CONTROL?
+------------------------------------
+Imagine 4 developers all editing the same file at the same time.
+Without version control:
+  - Someone's changes get overwritten and lost
+  - Nobody knows who changed what
+  - You cannot go back to a working version if something breaks
+  - Sharing code means emailing zip files back and forth
+
+Version control solves ALL of these problems.
+
+GIT is the most popular version control system in the world.
+GitHub, GitLab, and Bitbucket are online platforms that host
+Git repositories (repos) for teams.
+
+----------------------------------------------------------------
+KEY CONCEPTS
+----------------------------------------------------------------
+
+REPOSITORY (REPO)
+  A folder tracked by Git.
+  Contains all your project files AND the complete history
+  of every change ever made.
+
+COMMIT
+  A saved snapshot of your project at a point in time.
+  Think of it like a save point in a video game.
+  Each commit has: a message, an author, a timestamp, and an ID.
+
+BRANCH
+  A separate line of development.
+  The main/default branch is usually called "main" or "master".
+  You create a new branch to work on a feature without
+  affecting the main codebase.
+
+MERGE
+  Combining one branch into another.
+  When your feature is done, you merge it back into main.
+
+CLONE
+  Downloading a copy of a remote repository to your computer.
+
+PUSH
+  Uploading your local commits to the remote repository (GitHub).
+
+PULL
+  Downloading the latest changes from GitHub to your computer.
+
+PULL REQUEST (PR)
+  A request to merge your branch into another branch.
+  Other team members review your code before it gets merged.
+  This is how professional teams collaborate.
+
+----------------------------------------------------------------
+GIT SETUP (First Time Only)
+----------------------------------------------------------------
+
+Install Git from: https://git-scm.com
+
+After installing, open terminal and run:
+
+  git config --global user.name  "Your Name"
+  git config --global user.email "you@example.com"
+
+This identifies who made each commit.
+
+----------------------------------------------------------------
+CORE GIT COMMANDS (MUST KNOW)
+----------------------------------------------------------------
+
+STARTING A PROJECT:
+
+  git init
+    Creates a new Git repo in the current folder.
+
+  git clone https://github.com/user/repo.git
+    Downloads an existing repo from GitHub.
+
+CHECKING STATUS:
+
+  git status
+    Shows which files are changed, staged, or untracked.
+    Run this constantly — it is your best friend.
+
+  git log
+    Shows the commit history.
+
+  git log --oneline
+    Compact version — one commit per line.
+
+SAVING CHANGES:
+
+  git add filename.txt
+    Stage a specific file (prepare it for commit).
+
+  git add .
+    Stage ALL changed files.
+
+  git commit -m "Add login form to dashboard"
+    Save staged changes with a descriptive message.
+    Rule: Write commit messages in present tense.
+    Good: "Fix navigation bug"
+    Bad:  "fixed stuff", "asdfgh", "update"
+
+  git commit -am "Quick fix"
+    Add + commit in one command (only for tracked files).
+
+BRANCHES:
+
+  git branch
+    List all branches. Current one has * next to it.
+
+  git branch feature/login
+    Create a new branch called feature/login.
+
+  git checkout feature/login
+    Switch to that branch.
+
+  git checkout -b feature/login
+    Create AND switch to a new branch in one command.
+
+  git merge feature/login
+    Merge feature/login INTO the current branch.
+
+  git branch -d feature/login
+    Delete a branch after it has been merged.
+
+SYNCING WITH GITHUB:
+
+  git remote add origin https://github.com/user/repo.git
+    Link your local repo to a GitHub repo.
+
+  git push origin main
+    Upload your commits to GitHub on the main branch.
+
+  git pull origin main
+    Download latest changes from GitHub.
+
+  git push -u origin feature/login
+    Push a new branch to GitHub and set it as default upstream.
+
+UNDOING THINGS:
+
+  git restore filename.txt
+    Discard changes in a file (before staging).
+
+  git restore --staged filename.txt
+    Unstage a file (before committing).
+
+  git revert HEAD
+    Create a new commit that undoes the last commit.
+    Safe to use on shared branches.
+
+  git reset --hard HEAD~1
+    WARNING: Permanently remove the last commit.
+    Only use on YOUR private branch, never on shared ones.
+
+----------------------------------------------------------------
+PROFESSIONAL BRANCHING STRATEGY (GIT FLOW)
+----------------------------------------------------------------
+
+Most professional teams use this structure:
+
+  main        — Production code. Always stable. Protected.
+  develop     — Integration branch. All features merge here first.
+  feature/*   — Individual feature branches (e.g. feature/login)
+  hotfix/*    — Emergency bug fixes branched directly from main
+  release/*   — Preparing a version for release
+
+WORKFLOW:
+
+  1. Create a branch from develop
+       git checkout -b feature/upload-grades develop
+
+  2. Write code and commit regularly
+       git add .
+       git commit -m "Add grade upload form"
+
+  3. Push branch to GitHub
+       git push -u origin feature/upload-grades
+
+  4. Open a Pull Request on GitHub
+       - Ask teammates to review your code
+       - Discuss changes in comments
+       - Fix issues if requested
+
+  5. Merge into develop after approval
+       PR is merged on GitHub
+
+  6. Delete the feature branch
+       git branch -d feature/upload-grades
+
+----------------------------------------------------------------
+RESOLVING MERGE CONFLICTS
+----------------------------------------------------------------
+
+A conflict happens when two people edit the same line
+in the same file and Git cannot decide which version to keep.
+
+Git marks the conflict in the file like this:
+
+  <<<<<<< HEAD
+  This is YOUR version of the line
+  =======
+  This is THEIR version of the line
+  >>>>>>> feature/login
+
+HOW TO RESOLVE:
+  1. Open the file in your editor
+  2. Choose which version to keep (or combine both)
+  3. Delete the conflict markers (<<<<< ===== >>>>>)
+  4. Save the file
+  5. git add .
+  6. git commit -m "Resolve merge conflict in login.php"
+
+Tools that help visualize conflicts:
+  VS Code — has built-in conflict resolver (Accept Current / Accept Incoming buttons)
+  GitKraken, SourceTree — visual Git clients
+
+----------------------------------------------------------------
+.gitignore — WHAT NOT TO TRACK
+----------------------------------------------------------------
+
+Some files should NEVER be committed to Git:
+  - Passwords and API keys
+  - Compiled files (node_modules, vendor)
+  - Local config files
+  - Log files
+
+Create a file named .gitignore in your project root:
+
+  # Dependencies
+  node_modules/
+  vendor/
+
+  # Environment files (contains passwords!)
+  .env
+  config/local.php
+
+  # IDE files
+  .vscode/
+  .idea/
+
+  # Log files
+  *.log
+
+  # OS files
+  .DS_Store
+  Thumbs.db
+
+GitHub has .gitignore templates for every language at:
+  https://github.com/github/gitignore
+
+================================================================
+END OF MODULE 1
+Next: Module 2 — GitHub Collaboration, PRs & Code Review
+================================================================

@@ -1,0 +1,189 @@
+================================================================
+ETHICAL HACKING — MODULE 2: NETWORK SCANNING & ENUMERATION
+================================================================
+Course: Ethical Hacking
+Instructor: Sarah Johnson
+================================================================
+
+WHAT IS NETWORK SCANNING?
+---------------------------
+Network scanning is the process of identifying active hosts,
+open ports, and services running on a target network.
+
+It is done in Phase 2 of ethical hacking (Scanning Phase).
+
+----------------------------------------------------------------
+UNDERSTANDING IP ADDRESSES & PORTS
+----------------------------------------------------------------
+
+IP ADDRESS
+  Every device on a network has a unique IP address.
+  Example: 192.168.1.1 (local) or 203.45.12.9 (public)
+
+PORT
+  A port is a communication endpoint on a device.
+  Range: 0 to 65535
+  Common ports:
+    Port 21   — FTP  (File Transfer Protocol)
+    Port 22   — SSH  (Secure Shell — remote login)
+    Port 23   — Telnet (old, insecure remote login)
+    Port 25   — SMTP (Email sending)
+    Port 53   — DNS  (Domain Name System)
+    Port 80   — HTTP (Web traffic)
+    Port 443  — HTTPS (Secure web traffic)
+    Port 3306 — MySQL (Database)
+    Port 3389 — RDP  (Remote Desktop — Windows)
+
+PORT STATES
+  OPEN     : A service is actively listening on this port
+  CLOSED   : No service, but port is accessible
+  FILTERED : Firewall is blocking access to this port
+
+----------------------------------------------------------------
+NMAP — NETWORK MAPPER (Most Important Scanning Tool)
+----------------------------------------------------------------
+
+Nmap is the most widely used network scanning tool.
+It is free, open-source, and works on Windows/Linux/Mac.
+
+BASIC NMAP COMMANDS:
+
+  Scan a single IP:
+    nmap 192.168.1.1
+
+  Scan a range of IPs:
+    nmap 192.168.1.1-100
+
+  Scan an entire subnet:
+    nmap 192.168.1.0/24
+
+  Detect OS and service versions:
+    nmap -A 192.168.1.1
+
+  Scan specific ports only:
+    nmap -p 80,443,22 192.168.1.1
+
+  Scan all 65535 ports:
+    nmap -p- 192.168.1.1
+
+  Stealth scan (harder to detect):
+    nmap -sS 192.168.1.1
+
+  UDP scan:
+    nmap -sU 192.168.1.1
+
+  Save output to a file:
+    nmap -oN output.txt 192.168.1.1
+
+NMAP OUTPUT EXAMPLE:
+  PORT     STATE  SERVICE  VERSION
+  22/tcp   open   ssh      OpenSSH 7.4
+  80/tcp   open   http     Apache httpd 2.4.6
+  3306/tcp open   mysql    MySQL 5.7.30
+
+----------------------------------------------------------------
+ENUMERATION
+----------------------------------------------------------------
+
+Enumeration goes deeper than scanning.
+We extract detailed information such as:
+  - Usernames and group names
+  - Network shares
+  - Running services and versions
+  - DNS records
+
+COMMON ENUMERATION TOOLS:
+
+  NetBIOS Enumeration  : nbtscan, nbtstat
+  SNMP Enumeration     : snmpwalk, snmp-check
+  LDAP Enumeration     : ldapsearch
+  DNS Enumeration      : nslookup, dig, dnsenum
+  SMB Enumeration      : enum4linux, smbclient
+
+DNS ENUMERATION EXAMPLE:
+  nslookup example.com         — basic lookup
+  dig example.com ANY          — all DNS records
+  dnsenum example.com          — full DNS enumeration
+
+----------------------------------------------------------------
+VULNERABILITY SCANNING
+----------------------------------------------------------------
+
+After identifying open ports and services, we scan for
+known vulnerabilities using automated tools.
+
+TOOLS:
+
+  Nessus        : Most popular commercial scanner
+  OpenVAS       : Free and open-source alternative
+  Nikto         : Web server scanner
+  WPScan        : WordPress-specific scanner
+
+WHAT THEY FIND:
+  - Outdated software with known CVEs (Common Vulnerabilities)
+  - Misconfigured services
+  - Default passwords still in use
+  - Missing security patches
+
+CVE EXAMPLE:
+  CVE-2021-44228 — Log4Shell vulnerability in Apache Log4j
+  CVSS Score: 10.0 (Critical — maximum severity)
+
+----------------------------------------------------------------
+UNDERSTANDING CVE & CVSS
+----------------------------------------------------------------
+
+CVE (Common Vulnerabilities and Exposures)
+  A unique identifier for every known vulnerability.
+  Format: CVE-YEAR-NUMBER
+  Example: CVE-2023-12345
+
+CVSS (Common Vulnerability Scoring System)
+  A score from 0.0 to 10.0 measuring severity:
+    0.0       — None
+    0.1 - 3.9 — Low
+    4.0 - 6.9 — Medium
+    7.0 - 8.9 — High
+    9.0 - 10.0— Critical
+
+----------------------------------------------------------------
+HANDS-ON PRACTICE COMMANDS
+----------------------------------------------------------------
+
+Step 1: Find your own IP address
+  Windows : ipconfig
+  Linux   : ifconfig  OR  ip addr
+
+Step 2: Scan your local network for active hosts
+  nmap -sn 192.168.1.0/24
+
+Step 3: Run a basic scan on a target (use your lab VM)
+  nmap -sV 192.168.1.X
+
+Step 4: Try Nmap Scripting Engine (NSE) for extra info
+  nmap --script=default 192.168.1.X
+
+Step 5: Use Nikto to scan a web server
+  nikto -h http://192.168.1.X
+
+NOTE: Only perform these scans on systems you OWN or have
+WRITTEN PERMISSION to test. Unauthorized scanning is illegal.
+
+----------------------------------------------------------------
+SUMMARY TABLE
+----------------------------------------------------------------
+
+Tool         Purpose                    Free?
+-----------  -------------------------  -----
+Nmap         Port & host scanning       YES
+Nessus       Vulnerability scanning     Partial
+OpenVAS      Vulnerability scanning     YES
+Nikto        Web server scanning        YES
+WPScan       WordPress scanning         YES
+enum4linux   SMB/NetBIOS enumeration    YES
+dnsenum      DNS enumeration            YES
+
+================================================================
+END OF MODULE 2
+Next: Module 3 — Exploitation with Metasploit
+================================================================

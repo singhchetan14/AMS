@@ -1,11 +1,13 @@
 <?php
+session_start();
 include("../../config/db.php");
+if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
 
-// GET ID
+// GET COURSE ID (assignment lives on the course row itself)
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// FETCH EXISTING ASSIGNMENT
-$stmt = $conn->prepare("SELECT * FROM course_assignments WHERE id=?");
+// FETCH EXISTING ASSIGNMENT (= the course row)
+$stmt = $conn->prepare("SELECT id, name, teacher_id FROM courses WHERE id=?");
 $stmt->execute([$id]);
 $assignment = $stmt->fetch();
 
@@ -13,18 +15,18 @@ if(!$assignment){
     die("Assignment not found");
 }
 
-// FETCH TEACHERS & COURSES
-$teachers = $conn->query("SELECT * FROM users WHERE role='teacher'");
-$courses = $conn->query("SELECT * FROM courses");
-
 // UPDATE LOGIC
 if(isset($_POST['update'])){
-    $conn->prepare("UPDATE course_assignments SET teacher_id=?, course_id=? WHERE id=?")
-         ->execute([$_POST['teacher'], $_POST['course'], $id]);
+    $conn->prepare("UPDATE courses SET teacher_id=? WHERE id=?")
+         ->execute([$_POST['teacher'], $id]);
 
     header("Location: view_assigned_courses.php");
     exit();
 }
+
+// FETCH TEACHERS & COURSES for dropdowns
+$teachers = $conn->query("SELECT id, full_name FROM users WHERE role='teacher'");
+$courses  = $conn->query("SELECT id, name FROM courses");
 ?>
 
 <!DOCTYPE html>
@@ -128,18 +130,18 @@ button:hover {
             <?php while($t = $teachers->fetch()){ ?>
                 <option value="<?= $t['id'] ?>"
                     <?= ($t['id'] == $assignment['teacher_id']) ? 'selected' : '' ?>>
-                    <?= $t['name'] ?>
+                    <?= htmlspecialchars($t['full_name'] ?? '') ?>
                 </option>
             <?php } ?>
         </select>
 
-        <!-- Course -->
+        <!-- Course (read-only since the assignment IS the course) -->
         <label>Assigned Course</label>
-        <select name="course" required>
+        <select name="course" required disabled>
             <?php while($c = $courses->fetch()){ ?>
                 <option value="<?= $c['id'] ?>"
-                    <?= ($c['id'] == $assignment['course_id']) ? 'selected' : '' ?>>
-                    <?= $c['course_name'] ?>
+                    <?= ($c['id'] == $assignment['id']) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($c['name'] ?? '') ?>
                 </option>
             <?php } ?>
         </select>

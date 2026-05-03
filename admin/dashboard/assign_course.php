@@ -1,17 +1,20 @@
 <?php
+session_start();
 include("../../config/db.php");
 
-$teachers=$conn->query("SELECT * FROM users WHERE role='teacher'");
-$courses=$conn->query("SELECT * FROM courses");
+if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
 
 $success = "";
 
 if(isset($_POST['assign'])){
-$conn->prepare("INSERT INTO course_assignments(teacher_id,course_id)
-VALUES(?,?)")->execute([$_POST['teacher'],$_POST['course']]);
+    $conn->prepare("UPDATE courses SET teacher_id=? WHERE id=?")
+         ->execute([$_POST['teacher'], $_POST['course']]);
 
-$success = "Course assigned successfully";
+    $success = "Course assigned successfully";
 }
+
+$teachers = $conn->query("SELECT id, full_name FROM users WHERE role='teacher'");
+$courses  = $conn->query("SELECT id, name FROM courses WHERE teacher_id IS NULL");
 ?>
 
 <!DOCTYPE html>
@@ -127,14 +130,14 @@ button:hover {
         <label>Teacher's Name</label>
         <select name="teacher" required>
             <?php while($t=$teachers->fetch()){ ?>
-                <option value="<?=$t['id']?>"><?=$t['name']?></option>
+                <option value="<?=$t['id']?>"><?= htmlspecialchars($t['full_name'] ?? '') ?></option>
             <?php } ?>
         </select>
 
         <label>Course Name</label>
         <select name="course" required>
             <?php while($c=$courses->fetch()){ ?>
-                <option value="<?=$c['id']?>"><?=$c['course_name']?></option>
+                <option value="<?=$c['id']?>"><?= htmlspecialchars($c['name'] ?? '') ?></option>
             <?php } ?>
         </select>
 

@@ -3,7 +3,8 @@ session_start();
 include("../../config/db.php");
 
 if(!isset($_SESSION['admin'])){
-    header("Location: ../auth/login.php");
+    header("Location: ../login.php");
+    exit;
 }
 
 $message = "";
@@ -26,7 +27,7 @@ if(isset($_POST['add'])){
         $pass = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $conn->prepare("
-            INSERT INTO users(name,email,password,role)
+            INSERT INTO users(full_name,email,password,role)
             VALUES(?,?,?,'teacher')
         ");
 

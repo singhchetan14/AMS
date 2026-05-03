@@ -4,7 +4,7 @@ include("../../config/db.php");
 
 // Check admin session
 if(!isset($_SESSION['admin'])){
-    header("Location: ../auth/login.php");
+    header("Location: ../login.php");
     exit();
 }
 
@@ -28,7 +28,7 @@ if(!$course){
 if(isset($_POST['update'])){
     $name = $_POST['course'];
 
-    $stmt = $conn->prepare("UPDATE courses SET course_name=? WHERE id=?");
+    $stmt = $conn->prepare("UPDATE courses SET name=? WHERE id=?");
     $stmt->execute([$name, $id]);
 
     header("Location: view_courses.php");
@@ -130,7 +130,7 @@ button:hover {
 
     <form method="POST">
         <label>Course Name</label>
-        <input type="text" name="course" value="<?= $course['course_name'] ?>" required>
+        <input type="text" name="course" value="<?= htmlspecialchars($course['name'] ?? '') ?>" required>
 
         <button name="update">Save Changes</button>
     </form>

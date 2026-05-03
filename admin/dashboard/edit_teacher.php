@@ -3,7 +3,7 @@ session_start();
 include("../../config/db.php");
 
 if(!isset($_SESSION['admin'])){
-    header("Location: ../auth/login.php");
+    header("Location: ../login.php");
     exit();
 }
 
@@ -29,7 +29,7 @@ if(isset($_POST['update'])){
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         $message = "Invalid email format!";
     } else {
-        $stmt = $conn->prepare("UPDATE users SET name=?, email=? WHERE id=?");
+        $stmt = $conn->prepare("UPDATE users SET full_name=?, email=? WHERE id=? AND role='teacher'");
         $stmt->execute([$name, $email, $id]);
 
         $message = "Teacher updated successfully!";
@@ -133,10 +133,10 @@ button:hover {
     <form method="POST">
 
         <label>Teacher’s Name</label>
-        <input name="name" value="<?= $teacher['name'] ?>" required>
+        <input name="name" value="<?= htmlspecialchars($teacher['full_name'] ?? '') ?>" required>
 
         <label>Email</label>
-        <input type="email" name="email" value="<?= $teacher['email'] ?>" required>
+        <input type="email" name="email" value="<?= htmlspecialchars($teacher['email'] ?? '') ?>" required>
 
         <button name="update">Save Changes</button>
 

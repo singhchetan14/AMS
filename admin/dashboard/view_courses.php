@@ -1,5 +1,7 @@
 <?php
+session_start();
 include("../../config/db.php");
+if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
 $data=$conn->query("SELECT * FROM courses");
 ?>
 
@@ -117,7 +119,7 @@ function confirmDelete() {
         <tbody>
         <?php while($c=$data->fetch()){ ?>
             <tr>
-                <td><?= $c['course_name'] ?></td>
+                <td><?= htmlspecialchars($c['name'] ?? '') ?></td>
                 <td class="actions">
                     
                     <!--  EDIT BUTTON CONNECTED -->

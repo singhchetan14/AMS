@@ -1,11 +1,14 @@
 <?php
+session_start();
 include("../../config/db.php");
+
+if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
 
 $success = "";
 
 if(isset($_POST['add'])){
-    $conn->prepare("INSERT INTO courses(course_name) VALUES(?)")
-    ->execute([$_POST['course']]);
+    $conn->prepare("INSERT INTO courses(name, teacher_id) VALUES(?, NULL)")
+         ->execute([trim($_POST['course'])]);
 
     $success = "Course successfully added";
 }

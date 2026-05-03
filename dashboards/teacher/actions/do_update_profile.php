@@ -44,8 +44,8 @@ try {
     
     // ── Update password if provided ──────────────────────────────────
     if (!empty($newPassword)) {
-        if (strlen($newPassword) < 8) {
-            throw new Exception('Password must be at least 8 characters.');
+        if (strlen($newPassword) < 6) {
+            throw new Exception('Password must be at least 6 characters.');
         }
         $updateFields['password'] = password_hash($newPassword, PASSWORD_BCRYPT);
     }
@@ -92,7 +92,7 @@ try {
     }
     $updateVals[] = $_SESSION['teacher_id'];
     
-    $updateQuery = "UPDATE teachers SET " . implode(', ', $updateCols) . " WHERE id = ?";
+    $updateQuery = "UPDATE users SET " . implode(', ', $updateCols) . " WHERE id = ? AND role = 'teacher'";
     $stmt = $pdo->prepare($updateQuery);
     $stmt->execute($updateVals);
     

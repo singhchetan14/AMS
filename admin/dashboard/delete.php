@@ -3,7 +3,7 @@ session_start();
 include("../../config/db.php");
 
 if(!isset($_SESSION['admin'])){
-    header("Location: ../auth/login.php");
+    header("Location: ../login.php");
     exit();
 }
 
@@ -30,13 +30,13 @@ elseif($type === "course"){
     $stmt = $conn->prepare("DELETE FROM courses WHERE id=?");
     $stmt->execute([$id]);
 
-    header("Location: ../courses/view_courses.php");
+    header("Location: view_courses.php");
     exit();
 }
 
-/*  ONLY ADDED THIS BLOCK */
+// UN-ASSIGN COURSE (clear teacher_id, keep course)
 elseif($type === "assignment"){
-    $stmt = $conn->prepare("DELETE FROM course_assignments WHERE id=?");
+    $stmt = $conn->prepare("UPDATE courses SET teacher_id=NULL WHERE id=?");
     $stmt->execute([$id]);
 
     header("Location: view_assigned_courses.php");

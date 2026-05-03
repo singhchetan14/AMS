@@ -1,0 +1,257 @@
+/* Student dashboard — palette mirrors the teacher dashboard */
+:root {
+  --bg-primary: #0d1b2a;
+  --bg-sidebar: #112240;
+  --bg-card: #1a2f4e;
+  --bg-hover: #1e3a5f;
+  --text-primary: #ffffff;
+  --text-muted: #c8d5e5;
+  --radius: 12px;
+  --sidebar-width: 240px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  min-height: 100%;
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+a { color: inherit; }
+
+/* ── Layout ───────────────────────────────────────────── */
+.layout { min-height: 100vh; }
+
+.sidebar {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  padding: 28px 16px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+.sidebar-title {
+  margin: 0 0 28px;
+  font-size: 1.1rem; line-height: 1.4; font-weight: 800;
+}
+.nav-menu { display: flex; flex-direction: column; gap: 8px; }
+.nav-link {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text-primary); text-decoration: none;
+  padding: 12px; border-radius: var(--radius);
+  transition: 0.2s; border: 1px solid transparent;
+}
+.nav-link:hover { background: var(--bg-hover); }
+.nav-link.active {
+  background: var(--bg-hover);
+  border-color: rgba(255,255,255,0.16);
+}
+.nav-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+.main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh; padding: 28px;
+}
+body.no-sidebar .main { margin-left: 0; }
+
+/* ── Header ───────────────────────────────────────────── */
+.top-header {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; margin-bottom: 24px;
+}
+.greeting h1 { margin: 0; font-size: clamp(1.5rem, 2.4vw, 2rem); }
+.greeting p  { margin: 6px 0 0; color: var(--text-muted); }
+
+.avatar-btn {
+  width: 48px; height: 48px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 50%;
+  background: var(--bg-card); color: var(--text-primary);
+  display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none; cursor: pointer; transition: 0.2s;
+}
+.avatar-btn:hover { background: var(--bg-hover); }
+
+/* ── Stat cards ───────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 16px; margin-bottom: 18px;
+}
+.stat-card, .panel {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.stat-card h3 { margin: 0 0 16px; font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+.stat-value  { min-height: 44px; font-size: 2rem; font-weight: 700; }
+
+/* ── My Courses list (dashboard) ──────────────────────── */
+.panel h2 { margin: 0 0 16px; font-size: 1.1rem; }
+.course-list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.course-row {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+.course-row__icon {
+  width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.07);
+  border-radius: 8px;
+}
+.course-row__name { flex: 1; }
+.btn-link {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--text-primary);
+  padding: 7px 14px; border-radius: 8px;
+  font-size: 0.86rem; cursor: pointer;
+  text-decoration: none;
+}
+.btn-link:hover { background: var(--bg-hover); }
+
+/* ── Back link ────────────────────────────────────────── */
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text-muted); text-decoration: none;
+  font-size: 0.9rem; margin-bottom: 18px;
+}
+.back-link:hover { color: var(--text-primary); }
+
+/* ── Card wrap (used by inner pages: Grades / Materials / Courses / Profile) ─ */
+.card-wrap {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  border: 1px solid rgba(255,255,255,0.06);
+  max-width: 1100px;
+}
+.card-wrap > h2 { margin: 0 0 20px; font-weight: 500; font-size: 1.25rem; }
+.divider { height: 1px; background: rgba(255,255,255,0.1); margin: 18px 0 22px; }
+
+/* ── Grades table ─────────────────────────────────────── */
+.grade-table { width: 100%; border-collapse: collapse; }
+.grade-table th {
+  text-align: left; padding: 12px 14px;
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: #8b99a8;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.grade-table td {
+  padding: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.95rem;
+}
+.grade-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+.s-pass { color: #5aea96; font-weight: 600; }
+.s-fail { color: #ff8080; font-weight: 600; }
+
+.empty-state { text-align: center; padding: 38px 16px; color: #8b99a8; }
+
+/* ── Course tiles (my-courses) ────────────────────────── */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.tile {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.tile__icon { margin-bottom: 12px; opacity: 0.8; }
+.tile__title { margin: 0; font-size: 1rem; font-weight: 600; }
+.tile__code  { margin: 4px 0; color: #8b99a8; font-size: 0.82rem; }
+.tile__desc  { margin: 8px 0 0; color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
+
+/* ── Material cards (course-materials) ────────────────── */
+.material-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.material-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  display: block;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.material-card:hover {
+  background: var(--bg-hover);
+  border-color: rgba(255,255,255,0.18);
+}
+.material-card__title {
+  font-weight: 600; font-size: 0.95rem;
+  margin: 0 0 8px; color: var(--text-primary);
+  word-break: break-word;
+}
+.material-card__meta {
+  display: flex; flex-direction: column; gap: 3px;
+  font-size: 0.8rem; color: #8b99a8;
+}
+
+/* ── Profile ──────────────────────────────────────────── */
+.profile-wrap {
+  max-width: 520px; margin: 0 auto;
+}
+.profile-avatar {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: #6c7d92;
+  margin: 8px auto 14px;
+  display: block; object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.12);
+}
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px;
+  background: #2361cf; color: #fff;
+  border: none; padding: 10px 22px;
+  border-radius: 22px; font-size: 0.9rem; cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary:hover { opacity: 0.9; }
+.btn-row { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; margin-top: 8px; }
+.profile-photo-row { text-align: center; margin-bottom: 18px; }
+
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-primary);
+}
+input:focus { outline: none; border-color: rgba(255,255,255,0.35); }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-group label { font-size: 0.88rem; color: var(--text-muted); }
+
+.alert {
+  padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; font-size: 0.9rem;
+}
+.alert--success { background: rgba(0,200,80,0.12); border: 1px solid rgba(0,200,80,0.35); color: #9ff0bf; }
+.alert--error   { background: rgba(255,80,80,0.12); border: 1px solid rgba(255,80,80,0.35); color: #ff9c9c; }
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sidebar {
+    position: static; width: 100%;
+    border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .main { margin-left: 0; padding: 20px 14px 26px; }
+  .card-grid { grid-template-columns: 1fr; }
+}

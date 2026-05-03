@@ -141,12 +141,12 @@ line-height: 1.2;
 <div class="dropdown">
 <a href="#">Login</a>
 <div class="dropdown-content">
-<a href="auth/login.php">Admin</a>
-<a href="#">Teacher</a>
-<a href="#">Student</a>
+<a href="admin/login.php">Admin</a>
+<a href="auth/teacher/login.php">Teacher</a>
+<a href="auth/student/login.php">Student</a>
 </div>
 </div>
-<a href="#">Sign Up</a>
+<a href="auth/student/signup.php">Sign Up</a>
 </div>
 </div>
 <!-- MAIN -->
@@ -161,7 +161,7 @@ one intelligent platform.Built by students, for smarter </br>
 institutions.
 </p>
 <button class="btn" onclick="location.href='about.php'">Learn More</button>
-<button class="btn" onclick="location.href='auth/login.php'">Get Started</button>
+<button class="btn" onclick="location.href='auth/student/login.php'">Get Started</button>
 </div>
 <div class="image">
 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" width="150">

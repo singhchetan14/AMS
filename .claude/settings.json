@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -r \"echo password_hash\\('admin123', PASSWORD_DEFAULT\\) . PHP_EOL; echo password_hash\\('teacher123', PASSWORD_DEFAULT\\) . PHP_EOL; echo password_hash\\('student123', PASSWORD_DEFAULT\\) . PHP_EOL;\")",
+      "Bash(php -r 'var_dump\\(password_verify\\('\\\\''admin123'\\\\'', '\\\\''$2y$10$3Q7dRz627m4bfJQCg8O4CuxII///lnEPvt59LwXaSFDifMlorCkL2'\\\\''\\)\\); var_dump\\(password_verify\\('\\\\''teacher123'\\\\'', '\\\\''$2y$10$pAARPr/Y5oqNQ9usYbjCh.pSylX1uxGnqHvhXrYu/YpVuLd/ReRnq'\\\\''\\)\\); var_dump\\(password_verify\\('\\\\''student123'\\\\'', '\\\\''$2y$10$R6RnU3qLr77Uu6.z3lix1.9jmMRcJjKye0hDj5XysP4gri7OKA7/W'\\\\''\\)\\);')",
+      "Bash(php -l c:/xampp/htdocs/AMS/__TRACKED_VAR__)",
+      "Bash(\"c:/xampp/mysql/bin/mysql.exe\" --version)",
+      "Bash(\"c:/xampp/mysql/bin/mysql.exe\" -u root --execute=\"source c:/xampp/htdocs/AMS/ams_db.sql\")",
+      "Bash(\"c:/xampp/mysql/bin/mysql.exe\" -u root ams_db --execute=\"SELECT id, email, role, full_name FROM users; SELECT id, name, teacher_id FROM courses; SELECT student_no, full_name, group_name FROM students;\")",
+      "Bash(php -r ' *)",
+      "Bash(c:/xampp/mysql/bin/mysql.exe -u root ams_db '--execute= *)",
+      "Bash(\"c:/xampp/mysql/bin/mysql.exe\" -u root ams_db --execute=\"SELECT id, name FROM courses ORDER BY id;\")",
+      "Bash(\"c:/xampp/mysql/bin/mysql.exe\" -u root ams_db --execute=\"DELETE FROM materials WHERE id IN \\(5,6,7\\);\")",
+      "Bash(\"c:/xampp/mysql/bin/mysql.exe\" -u root ams_db --execute=\"SELECT id, full_name, student_no, group_name FROM students; SELECT id, name, teacher_id, group_name FROM courses;\")"
+    ]
+  }
+}

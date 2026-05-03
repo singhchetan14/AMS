@@ -1,4 +1,8 @@
-<?php session_start(); $admin=$_SESSION['admin']; ?>
+<?php
+session_start();
+if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
+$admin = $_SESSION['admin'];
+?>
 
 <!DOCTYPE html>
 <html>
@@ -101,14 +105,14 @@ body {
 
         <!-- Name -->
         <label>Full Name</label>
-        <input type="text" value="<?= $admin['name'] ?>" readonly>
+        <input type="text" value="<?= htmlspecialchars($admin['full_name'] ?? '') ?>" readonly>
 
         <!-- Email -->
         <label>Email</label>
-        <input type="text" value="<?= $admin['email'] ?>" readonly>
+        <input type="text" value="<?= htmlspecialchars($admin['email'] ?? '') ?>" readonly>
 
         <!-- Logout -->
-        <a href="../../admin/logout.php">
+        <a href="../logout.php">
             <button class="logout-btn">Logout</button>
         </a>
     </div>

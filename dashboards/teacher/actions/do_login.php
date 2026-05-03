@@ -26,9 +26,9 @@ if (empty($email) || empty($password)) {
 
 // ── Query teacher by email (prepared statement) ──────────────────────
 $stmt = $pdo->prepare("
-    SELECT id, full_name, email, password 
-    FROM teachers 
-    WHERE email = ?
+    SELECT id, full_name, email, password
+    FROM users
+    WHERE email = ? AND role = 'teacher'
     LIMIT 1
 ");
 $stmt->execute([$email]);

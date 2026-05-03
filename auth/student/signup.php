@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("INSERT INTO users (email, password, role) VALUES (?, ?, 'student')");
 
             if ($stmt->execute([$email, $hashed])) {
-                $success = "Account created successfully!";
+                $success = "Account created successfully! Redirecting to login...";
             } else {
                 $error = "Something went wrong. Please try again.";
             }
@@ -96,5 +96,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <?php include '../../includes/footer.php'; ?>
   <script src="../../assets/js/script.js"></script>
+  <script>
+    // Redirect to login page after successful signup
+    <?php if ($success): ?>
+      setTimeout(() => {
+        window.location.href = 'login.php';
+      }, 2000);
+    <?php endif; ?>
+  </script>
 </body>
 </html>

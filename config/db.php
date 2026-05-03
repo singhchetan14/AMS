@@ -10,6 +10,8 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ]);
+    // alias so admin code that uses $conn keeps working
+    $conn = $pdo;
 } catch (PDOException $e) {
     exit('Database connection failed.');
 }

@@ -14,8 +14,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // ── Check Session ────────────────────────────────────────────────────
 if (!isset($_SESSION['teacher_id']) || !isset($_SESSION['teacher_name'])) {
-    // Not logged in — redirect to login page
-    header('Location: login.php');
+    // Not logged in — redirect to canonical teacher login page
+    header('Location: ../../auth/teacher/login.php');
     exit;
 }
 

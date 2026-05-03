@@ -1,12 +1,15 @@
 <?php
+session_start();
 include("../../config/db.php");
+if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
 
-// FETCH ASSIGNED COURSES WITH JOIN
+// FETCH ASSIGNED COURSES (assignment lives on courses.teacher_id)
 $data = $conn->query("
-    SELECT ca.id, u.name AS teacher_name, c.course_name
-    FROM course_assignments ca
-    JOIN users u ON ca.teacher_id = u.id
-    JOIN courses c ON ca.course_id = c.id
+    SELECT c.id, u.full_name AS teacher_name, c.name AS course_name
+    FROM courses c
+    JOIN users u ON c.teacher_id = u.id
+    WHERE c.teacher_id IS NOT NULL
+    ORDER BY u.full_name, c.name
 ");
 ?>
 
@@ -124,8 +127,8 @@ function confirmDelete() {
         <tbody>
         <?php while($row = $data->fetch()){ ?>
             <tr>
-                <td><?= $row['teacher_name'] ?></td>
-                <td><?= $row['course_name'] ?></td>
+                <td><?= htmlspecialchars($row['teacher_name'] ?? '') ?></td>
+                <td><?= htmlspecialchars($row['course_name'] ?? '') ?></td>
                 <td class="actions">
                     
                     <!--  EDIT BUTTON FIXED -->

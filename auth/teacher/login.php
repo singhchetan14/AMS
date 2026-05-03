@@ -11,16 +11,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($email) || empty($password)) {
         $error = "All fields are required.";
     } else {
-        // checking teacher creds in db
+        // checking teacher creds in users table (role = 'teacher')
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND role = 'teacher'");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && $user['password'] && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_role'] = 'teacher';
-            header('Location: ../../dashboards/teacher/index.php');
+            // teacher dashboard reads these keys
+            $_SESSION['teacher_id'] = $user['id'];
+            $_SESSION['teacher_email'] = $user['email'];
+            $_SESSION['teacher_name'] = $user['full_name'] ?? $user['email'];
+            header('Location: ../../dashboards/teacher/dashboard.php');
             exit;
         } else {
             $error = "Invalid email or password.";

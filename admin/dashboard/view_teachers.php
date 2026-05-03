@@ -89,8 +89,8 @@ td {
 
         <?php while($t = $data->fetch()){ ?>
         <tr>
-            <td><?= $t['name'] ?></td>
-            <td><?= $t['email'] ?></td>
+            <td><?= htmlspecialchars($t['full_name'] ?? '') ?></td>
+            <td><?= htmlspecialchars($t['email']) ?></td>
             <td class="action">
 
                 <a href="edit_teacher.php?id=<?= $t['id'] ?>">Edit</a> |

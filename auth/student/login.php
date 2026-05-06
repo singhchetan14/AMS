@@ -63,11 +63,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form__group">
           <label class="form__label"><span class="form__label-icon">&#128274;</span> Password</label>
-          <input type="password" name="password" class="form__input" placeholder="Password" required>
+          <div style="position: relative;">
+            <input type="password" id="password" name="password" class="form__input" placeholder="Password" required>
+            <button type="button" onclick="togglePassword('password')"
+              style="position:absolute; right:15px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; font-size:1rem;">
+              &#128065;
+            </button>
+          </div>
         </div>
 
         <button type="submit" class="btn btn--primary btn--block">Log in</button>
       </form>
+
+      <script>
+        function togglePassword(id) {
+          var f = document.getElementById(id);
+          f.type = f.type === "password" ? "text" : "password";
+        }
+      </script>
 
       <div class="form__footer">
         Don't have an account? <a href="signup.php" class="form__link">Sign up</a>

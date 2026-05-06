@@ -17,6 +17,149 @@ This project is being developed as part of our academic coursework by a team of 
 
 ---
 
+## Features (Sprint 2)
+
+Sprint 2 builds the day-to-day functionality on top of Sprint 1's authentication foundation. This sprint focused on what users actually *do* once they log in — manage their profile, view/upload course materials, see and assign grades, and message each other in real time.
+
+### 1. Profile Management (Student & Teacher)
+
+Both students and teachers now have a dedicated profile page (`dashboards/student/profile.php` and `dashboards/teacher/profile.php`) where they can:
+
+- **View and edit personal details** — full name and email address, both stored in the `users` table.
+- **Upload a profile photo** — PNG or JPEG, validated server-side with `finfo_file` (MIME-sniffing, not just extension), capped at 5MB. Files are saved to `dashboards/student/uploads/photos/` or `dashboards/teacher/uploads/photos/` with a unique filename pattern (`student_{id}_{timestamp}.{ext}` / `teacher_{id}_{timestamp}.{ext}`) so old photos aren't overwritten and there are no collisions.
+- **Change password** — leaves the old password in place if the new field is left blank; otherwise hashes the new one with `password_hash(PASSWORD_DEFAULT)` before storing.
+- **All updates run inside a PDO transaction** (`do_update_profile.php`) — if any single step fails (validation, file move, or DB update), the whole change is rolled back so the database never ends up in a half-updated state. The linked `students` row is kept in sync as a best-effort secondary update.
+- **Logout** — clears the session and redirects back to the login page.
+
+### 2. Student Dashboard Pages
+
+The student dashboard is now a full sidebar layout (`dashboards/student/`) with these pages:
+
+- **`dashboard.php`** — Overview page showing total grades recorded, average score (rounded to 1 decimal), and the list of all courses in the system with their assigned teacher's name (joined from `users` via `c.teacher_id`).
+- **`my-courses.php`** — Read-only list of every course the student is enrolled in.
+- **`my-grades.php`** — All grades the student has received, by course.
+- **`course-materials.php`** — Lists every material a teacher has uploaded for any course the student belongs to. Files are downloaded through `download.php` (a controlled passthrough, so direct file URLs are not exposed).
+- **`profile.php`** — Profile management (described above).
+
+All pages share a common `includes/sidebar.php`, `includes/header.php`, and `includes/auth.php` (which redirects to login if the session is missing or the role is wrong).
+
+### 3. Teacher Dashboard Pages
+
+The teacher dashboard (`dashboards/teacher/`) mirrors the student layout but with write/management permissions:
+
+- **`dashboard.php`** — Shows assigned course count (from `courses WHERE teacher_id = ?`), total student count, today's class schedule (filtered by the current weekday using `date('l')`), and recent uploaded materials. Uses no-cache HTTP headers so a logged-out user can't navigate back to a cached version.
+- **`view-students.php`** — Read-only roster of all students in the system.
+- **`upload-grades.php`** — Records grades for students in a course. Calls `do_upload_grade.php` (form handler) and inserts into the `grades` table.
+- **`edit-grade.php`** — Edit or delete a previously recorded grade. Delete goes through `do_delete_grade.php`.
+- **`upload-materials.php`** — Uploads a course material file (PDF, DOCX, etc.) via `do_upload_material.php`. Files are saved to `uploads/materials/`, and the metadata row is inserted into the `materials` table. There is a small JSON endpoint (`actions/api_materials.php`) used by the page to list materials without a full reload.
+- **`profile.php`** — Profile management (described above).
+
+The teacher session uses dedicated session keys (`teacher_id`, `teacher_email`, `teacher_name`) which are set during login alongside the generic `user_id` / `user_role` keys, so both the new teacher pages and any shared code (like the messaging widget) can read whichever they need.
+
+### 4. Messaging Feature (`messaging/`)
+
+A self-contained chat module that lets students and teachers message each other directly. The module is dropped into a single folder so it can be enabled/disabled cleanly:
+
+```
+messaging/
+├── messages.php                 # Full-page Messenger-style UI (sidebar + thread)
+├── sql/messages.sql             # Schema for the messages table
+├── includes/auth.php            # Resolves the current user from either session
+├── widget/                      # Floating chat bubble that embeds messages.php
+│   ├── widget.php               # Bubble + iframe wrapper
+│   ├── widget.css               # Bubble styling
+│   └── widget.js                # Open/close + unread polling
+└── api/                         # JSON endpoints (used by the widget for AJAX)
+    ├── contacts.php
+    ├── conversations.php
+    ├── fetch.php
+    ├── send.php
+    ├── mark_read.php
+    └── unread_count.php
+```
+
+How it works:
+
+- **Database** — A single `messages` table with `sender_id`, `receiver_id`, `body`, `is_read`, and `created_at`. Foreign keys cascade on user delete. Two indexes: `(receiver_id, is_read)` for the unread badge query, and `(sender_id, receiver_id, created_at)` for thread fetches. The table is auto-created on first hit of `messages.php`, so there is no manual migration step required.
+- **Full-page UI (`messages.php`)** — A two-pane layout: left sidebar shows either conversations (sorted by latest message) or live search results when the user types in the search box; right pane shows the active thread. Sending is a plain POST form (no AJAX needed) which redirects back to the same page. Opening a thread auto-marks its incoming messages as read in the same request.
+- **Floating widget (`widget/widget.php`)** — A blue bubble pinned bottom-right of every dashboard page. Clicking it opens a panel that loads `messages.php?embed=1` inside an iframe — `embed=1` switches the page to a compact stacked layout that fits the panel. The bubble shows a red unread-count badge driven by a single `COUNT(*)` query against unread messages. The base URL is auto-detected from `DOCUMENT_ROOT` so it works whether AMS is served from `/AMS` or another path.
+- **Cross-role** — Because the widget reads either `user_id` (student) or `teacher_id` (teacher) from the session, the same code works for both roles without duplication.
+
+### 5. Show / Hide Password Toggle
+
+Login and signup pages now have an eye-icon button next to each password field. Clicking it toggles the input between `type="password"` and `type="text"` so users can verify what they typed. This was added to:
+
+- `auth/student/login.php`
+- `auth/student/signup.php` (both the password and confirm-password fields, with independent toggles)
+- `auth/teacher/login.php`
+- `admin/login.php` (already had this from Sprint 1's admin work)
+
+The implementation is intentionally tiny — a positioned `<button type="button">` overlaying the input, plus a one-liner `togglePassword(id)` JS function. It is purely a UI affordance: form submission, validation, and the `password_verify` flow on the server are completely untouched.
+
+### 6. Database Schema Additions for Sprint 2
+
+In addition to Sprint 1's `users` and `password_resets` tables, Sprint 2 introduces:
+
+```sql
+-- Profile photo + full name on the users table (added as ALTER)
+ALTER TABLE users ADD COLUMN full_name VARCHAR(255) NULL AFTER email;
+ALTER TABLE users ADD COLUMN photo VARCHAR(255) NULL;
+
+-- Students roster (separate from auth)
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    group_name VARCHAR(50) NULL
+);
+
+-- Courses, owned by a teacher
+CREATE TABLE courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    teacher_id INT NOT NULL,
+    schedule_time TIME NULL,
+    schedule_day VARCHAR(20) NULL,
+    group_name VARCHAR(50) NULL,
+    FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Grades recorded by a teacher for a student
+CREATE TABLE grades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    course_id INT NOT NULL,
+    score DECIMAL(5,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Course materials uploaded by a teacher
+CREATE TABLE materials (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    teacher_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    filename VARCHAR(255) NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Messaging table (also auto-created on first hit of messages.php)
+CREATE TABLE messages (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id   INT NOT NULL,
+    receiver_id INT NOT NULL,
+    body        TEXT NOT NULL,
+    is_read     TINYINT(1) NOT NULL DEFAULT 0,
+    created_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    KEY idx_receiver (receiver_id, is_read),
+    KEY idx_thread   (sender_id, receiver_id, created_at),
+    FOREIGN KEY (sender_id)   REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+---
+
 ## Tech Stack
 
 - **Backend:** PHP 8+

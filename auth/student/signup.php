@@ -77,16 +77,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form__group">
           <label class="form__label"><span class="form__label-icon">&#128274;</span> Password</label>
-          <input type="password" name="password" class="form__input" placeholder="Min 6 characters" required>
+          <div style="position: relative;">
+            <input type="password" id="signup-password" name="password" class="form__input" placeholder="Min 6 characters" required>
+            <button type="button" onclick="togglePassword('signup-password')"
+              style="position:absolute; right:15px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; font-size:1rem;">
+              &#128065;
+            </button>
+          </div>
         </div>
 
         <div class="form__group">
           <label class="form__label"><span class="form__label-icon">&#128274;</span> Confirm Password</label>
-          <input type="password" name="confirm_password" class="form__input" placeholder="Re-enter password" required>
+          <div style="position: relative;">
+            <input type="password" id="signup-confirm-password" name="confirm_password" class="form__input" placeholder="Re-enter password" required>
+            <button type="button" onclick="togglePassword('signup-confirm-password')"
+              style="position:absolute; right:15px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; font-size:1rem;">
+              &#128065;
+            </button>
+          </div>
         </div>
 
         <button type="submit" class="btn btn--primary btn--block">Sign up</button>
       </form>
+
+      <script>
+        function togglePassword(id) {
+          var f = document.getElementById(id);
+          f.type = f.type === "password" ? "text" : "password";
+        }
+      </script>
 
       <div class="form__footer">
         Already have an account? <a href="login.php" class="form__link">Log in</a>

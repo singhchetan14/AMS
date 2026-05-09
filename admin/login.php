@@ -53,7 +53,7 @@ $error = "Invalid email or password!";
         h2 { color: #fff; text-align: center; margin-bottom: 8px; }
         .subtitle { color: #a8b8c8; font-size: 0.85rem; text-align: center; margin-bottom: 24px; }
         label { color: #fff; display: block; margin-bottom: 6px; }
-        input[type="email"], input[type="password"] {
+        input[type="email"], input[type="password"], input[type="text"] {
             width: 100%;
             padding: 12px 18px;
             border: none;
@@ -85,10 +85,33 @@ $error = "Invalid email or password!";
         <?php if($error){ echo "<p class='error'>$error</p>"; } ?>
         <label>Email Address</label>
         <input type="email" name="email" placeholder="Enter Email" required><br><br>
+        
         <label>Password</label>
-        <input type="password" name="password" placeholder="Enter Password" required><br><br>
+        <!-- Password input wrapped in a relative container so the eye button can sit on top. -->
+        <div style="position: relative;">
+            <input type="password" id="password" name="password" placeholder="Enter Password" required>
+            <!-- Eye button toggles the password between hidden and visible. -->
+            <button type="button" onclick="togglePassword()"
+                style="position:absolute; right:15px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer;">
+                👁️
+            </button>
+        </div><br><br>
+
         <button name="login">Login</button>
     </form>
 </div>
+
+<script>
+// Show/hide password by switching the input's type attribute.
+function togglePassword() {
+    var passField = document.getElementById("password");
+    if (passField.type === "password") {
+        passField.type = "text";
+    } else {
+        passField.type = "password";
+    }
+}
+</script>
+
 </body>
 </html>

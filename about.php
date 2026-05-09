@@ -163,13 +163,13 @@ body {
         <div class="dropdown">
             <a href="#">Login</a>
             <div class="dropdown-content">
-                <a href="auth/login.php">Admin</a>
-                <a href="#">Teacher</a>
-                <a href="#">Student</a>
+               <a href="admin/login.php">Admin</a>
+               <a href="auth/teacher/login.php">Teacher</a>
+               <a href="auth/student/login.php">Student</a>
             </div>
         </div>
 
-        <a href="#">Sign Up</a>
+        <a href="auth/student/signup.php">Sign Up</a>
     </div>
 </div>
 

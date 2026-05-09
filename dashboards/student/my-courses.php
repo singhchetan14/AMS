@@ -66,5 +66,6 @@ $myCourses = $pdo->query("
       </div>
     </main>
   </div>
+  <?php include $_SERVER['DOCUMENT_ROOT'] . '/AMS/messaging/widget/widget.php'; ?>
 </body>
 </html>

@@ -1,1 +1,233 @@
-/* Floating messaging widget styles (prefix all classes with .ams-msg-) */
+/* All classes prefixed with .ams-msg- to avoid colliding with dashboard styles. */
+
+.ams-msg-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* The HTML `hidden` attribute is normally `display: none`, but our flex
+   layouts on .ams-msg-view / .ams-msg-panel override that. Force it back. */
+.ams-msg-widget [hidden] { display: none !important; }
+
+/* ── Bubble (closed state) ──────────────────────────────────────────── */
+.ams-msg-bubble {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 0;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+  position: relative;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ams-msg-bubble:hover { background: #1d4ed8; }
+
+.ams-msg-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 11px;
+  min-width: 18px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+/* ── Panel (open state) ─────────────────────────────────────────────── */
+.ams-msg-panel {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 340px;
+  height: 480px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ams-msg-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #2563eb;
+  color: #fff;
+}
+.ams-msg-title { flex: 1; font-weight: 600; font-size: 15px; }
+.ams-msg-back,
+.ams-msg-close {
+  background: transparent;
+  color: #fff;
+  border: 0;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+}
+
+.ams-msg-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.ams-msg-search {
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.ams-msg-search input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+}
+.ams-msg-search input:focus { border-color: #2563eb; }
+
+.ams-msg-list { flex: 1; overflow-y: auto; }
+.ams-msg-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+}
+.ams-msg-item:hover { background: #f9fafb; }
+
+.ams-msg-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  color: #4b5563;
+  flex-shrink: 0;
+}
+.ams-msg-meta { flex: 1; min-width: 0; }
+.ams-msg-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ams-msg-role {
+  font-size: 10px;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-left: 4px;
+  letter-spacing: .04em;
+}
+.ams-msg-snippet {
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ams-msg-unread {
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  font-weight: 600;
+}
+
+.ams-msg-empty {
+  padding: 24px 12px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* ── Thread view ────────────────────────────────────────────────────── */
+.ams-msg-thread {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #f9fafb;
+}
+.ams-msg-bubble-msg {
+  max-width: 75%;
+  padding: 7px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+.ams-msg-bubble-msg.me {
+  align-self: flex-end;
+  background: #2563eb;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.ams-msg-bubble-msg.them {
+  align-self: flex-start;
+  background: #fff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  border-bottom-left-radius: 4px;
+}
+
+.ams-msg-form {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+}
+.ams-msg-form input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+}
+.ams-msg-form input:focus { border-color: #2563eb; }
+.ams-msg-form button {
+  padding: 0 14px;
+  background: #2563eb;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+.ams-msg-form button:hover { background: #1d4ed8; }

@@ -153,5 +153,6 @@ $error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
         <?php endif; ?>
     </script>
     <script src="script.js"></script>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/AMS/messaging/widget/widget.php'; ?>
 </body>
 </html>

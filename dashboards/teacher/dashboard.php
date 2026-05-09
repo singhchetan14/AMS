@@ -254,5 +254,7 @@ $recentMaterials = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     </script>
     <script src="script.js"></script>
+    <?php // Floating chat widget — appears on every teacher page. ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/AMS/messaging/widget/widget.php'; ?>
 </body>
 </html>

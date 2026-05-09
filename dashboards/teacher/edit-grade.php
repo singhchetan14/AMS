@@ -203,5 +203,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </main>
     </div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/AMS/messaging/widget/widget.php'; ?>
 </body>
 </html>

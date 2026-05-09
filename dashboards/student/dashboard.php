@@ -81,5 +81,7 @@ $myCourses = $pdo->query("
       </section>
     </main>
   </div>
+  <?php // Floating chat widget — appears on every student page. ?>
+  <?php include $_SERVER['DOCUMENT_ROOT'] . '/AMS/messaging/widget/widget.php'; ?>
 </body>
 </html>

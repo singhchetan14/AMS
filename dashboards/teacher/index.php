@@ -43,5 +43,6 @@ if (isset($_GET['logout'])) {
 
   <?php include '../../includes/footer.php'; ?>
 
+  <?php include $_SERVER['DOCUMENT_ROOT'] . '/AMS/messaging/widget/widget.php'; ?>
 </body>
 </html>

@@ -403,5 +403,6 @@ function updateDist() {
 }
 </script>
 
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/AMS/messaging/widget/widget.php'; ?>
 </body>
 </html>

@@ -3,12 +3,12 @@ session_start();
 include("../../config/db.php");
 if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
 
-// FETCH ASSIGNED COURSES (assignment lives on courses.teacher_id)
+// FETCH ASSIGNED COURSES
 $data = $conn->query("
-    SELECT c.id, u.full_name AS teacher_name, c.name AS course_name
-    FROM courses c
-    JOIN users u ON c.teacher_id = u.id
-    WHERE c.teacher_id IS NOT NULL
+    SELECT ca.id, u.full_name AS teacher_name, c.name AS course_name
+    FROM course_assignment ca
+    JOIN courses c ON ca.course_id = c.id
+    JOIN users u ON ca.teacher_id = u.id
     ORDER BY u.full_name, c.name
 ");
 ?>
@@ -18,7 +18,6 @@ $data = $conn->query("
 <head>
 <meta charset="UTF-8">
 <title>View Assigned Courses</title>
-<!-- ✅ ADDED CSS LINK -->
 <link rel="stylesheet" href="../../assets/css/admin_style.css">
 
 <style>
@@ -130,18 +129,12 @@ function confirmDelete() {
                 <td><?= htmlspecialchars($row['teacher_name'] ?? '') ?></td>
                 <td><?= htmlspecialchars($row['course_name'] ?? '') ?></td>
                 <td class="actions">
-                    
-                    <!--  EDIT BUTTON FIXED -->
                     <a href="edit_assigned_courses.php?id=<?= $row['id'] ?>">Edit</a>
-                    
                     <span>|</span>
-                    
-                    <!-- DELETE -->
                     <a href="delete.php?id=<?= $row['id'] ?>&type=assignment"
                        onclick="return confirmDelete()">
                        Delete
                     </a>
-
                 </td>
             </tr>
         <?php } ?>

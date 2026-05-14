@@ -1,8 +1,4 @@
-<?php
-session_start();
-if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
-$admin = $_SESSION['admin'];
-?>
+<?php session_start(); $admin=$_SESSION['admin']; ?>
 
 <!DOCTYPE html>
 <html>
@@ -38,6 +34,17 @@ body {
     color: #fff;
     border: 2px solid #000;
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    position: relative;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-btn {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    position: absolute;
+    top: 25px;
+    left: 30px;
 }
 
 /* TITLE */
@@ -98,21 +105,25 @@ body {
 <div class="main">
 
     <div class="profile-card">
+
+        <!-- BACK BUTTON -->
+        <a href="dashboard.php" class="back-btn">← Back</a>
+
         <h2>Profile Settings</h2>
 
-        <!-- ✅ DEFAULT PROFILE IMAGE -->
+        <!--  DEFAULT PROFILE IMAGE -->
         <img src="https://three.psbdigital.ca/wp-content/uploads/2024/03/6515859.webp?6bfec1&6bfec1" class="profile-img">
 
         <!-- Name -->
         <label>Full Name</label>
-        <input type="text" value="<?= htmlspecialchars($admin['full_name'] ?? '') ?>" readonly>
+        <input type="text" name="name" value="<?= $admin['name'] ?? 'Admin' ?>" readonly>
 
         <!-- Email -->
         <label>Email</label>
-        <input type="text" value="<?= htmlspecialchars($admin['email'] ?? '') ?>" readonly>
+        <input type="text" value="<?= $admin['email'] ?>" readonly>
 
         <!-- Logout -->
-        <a href="../logout.php">
+        <a href="../../admin/logout.php">
             <button class="logout-btn">Logout</button>
         </a>
     </div>

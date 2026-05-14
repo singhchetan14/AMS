@@ -228,15 +228,28 @@ body.no-sidebar .main { margin-left: 0; }
 .btn-row { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; margin-top: 8px; }
 .profile-photo-row { text-align: center; margin-bottom: 18px; }
 
-input[type="text"], input[type="email"], input[type="password"] {
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"], select {
   width: 100%;
   padding: 11px 14px;
   border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.06);
   color: var(--text-primary);
+  font: inherit;
 }
-input:focus { outline: none; border-color: rgba(255,255,255,0.35); }
+/* native dropdown arrow doesn't theme well on dark bg — replace with a custom one */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 38px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23cbd5e1' d='M6 8L0 0h12z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+select option { background: #1e2a44; color: var(--text-primary); }
+input:focus, select:focus { outline: none; border-color: rgba(255,255,255,0.35); }
 .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
 .form-group label { font-size: 0.88rem; color: var(--text-muted); }
 

@@ -7,14 +7,14 @@ if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
 $success = "";
 
 if(isset($_POST['assign'])){
-    $conn->prepare("UPDATE courses SET teacher_id=? WHERE id=?")
-         ->execute([$_POST['teacher'], $_POST['course']]);
+    $conn->prepare("INSERT INTO course_assignment (course_id, teacher_id) VALUES (?, ?)")
+         ->execute([$_POST['course'], $_POST['teacher']]);
 
     $success = "Course assigned successfully";
 }
 
 $teachers = $conn->query("SELECT id, full_name FROM users WHERE role='teacher'");
-$courses  = $conn->query("SELECT id, name FROM courses WHERE teacher_id IS NULL");
+$courses  = $conn->query("SELECT id, name FROM courses");
 ?>
 
 <!DOCTYPE html>

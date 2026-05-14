@@ -111,6 +111,6 @@ $students = $pdo->query("
       </div>
     </main>
   </div>
-  <?php include $_SERVER['DOCUMENT_ROOT'] . '/AMS/messaging/widget/widget.php'; ?>
+  <?php include __DIR__ . '/../../messaging/widget/widget.php'; ?>
 </body>
 </html>

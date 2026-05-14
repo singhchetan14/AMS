@@ -32,6 +32,7 @@ CREATE TABLE `users` (
   `student_no`  VARCHAR(20)  DEFAULT NULL,
   `department`  VARCHAR(100) DEFAULT NULL,
   `phone`       VARCHAR(20)  DEFAULT NULL,
+  `gender`      ENUM('male','female','other') DEFAULT NULL,
   `photo`       VARCHAR(255) DEFAULT NULL,
   `group_name`  VARCHAR(10)  DEFAULT NULL,
   `created_at`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,

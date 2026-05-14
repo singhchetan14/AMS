@@ -2,9 +2,9 @@
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/config/db.php';
 
-$stmt = $pdo->prepare("SELECT full_name, email, photo FROM users WHERE id = ? LIMIT 1");
+$stmt = $pdo->prepare("SELECT full_name, email, phone, gender, photo FROM users WHERE id = ? LIMIT 1");
 $stmt->execute([$_SESSION['user_id']]);
-$user = $stmt->fetch() ?: ['full_name' => '', 'email' => $_SESSION['user_email'] ?? '', 'photo' => null];
+$user = $stmt->fetch() ?: ['full_name' => '', 'email' => $_SESSION['user_email'] ?? '', 'phone' => '', 'gender' => '', 'photo' => null];
 
 $success = isset($_GET['success']);
 $error   = $_GET['error'] ?? '';
@@ -68,8 +68,30 @@ $error   = $_GET['error'] ?? '';
           </div>
 
           <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" value="<?= htmlspecialchars($user['phone'] ?? '') ?>" placeholder="e.g. +977 98XXXXXXXX">
+          </div>
+
+          <div class="form-group">
+            <label>Gender</label>
+            <select name="gender">
+              <?php $g = strtolower((string)($user['gender'] ?? '')); ?>
+              <option value=""        <?= $g === ''       ? 'selected' : '' ?>>Prefer not to say</option>
+              <option value="male"    <?= $g === 'male'   ? 'selected' : '' ?>>Male</option>
+              <option value="female"  <?= $g === 'female' ? 'selected' : '' ?>>Female</option>
+              <option value="other"   <?= $g === 'other'  ? 'selected' : '' ?>>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label>New Password</label>
-            <input type="password" name="new_password" placeholder="Leave blank to keep current">
+            <div style="position: relative;">
+              <input type="password" id="profile-new-password" name="new_password" placeholder="Leave blank to keep current">
+              <button type="button" onclick="togglePassword('profile-new-password')"
+                style="position:absolute; right:12px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; font-size:1rem; color:inherit;">
+                &#128065;
+              </button>
+            </div>
           </div>
 
           <div class="btn-row">
@@ -81,5 +103,11 @@ $error   = $_GET['error'] ?? '';
     </main>
   </div>
   <?php include __DIR__ . '/../../messaging/widget/widget.php'; ?>
+  <script>
+    function togglePassword(id) {
+      var f = document.getElementById(id);
+      f.type = f.type === "password" ? "text" : "password";
+    }
+  </script>
 </body>
 </html>

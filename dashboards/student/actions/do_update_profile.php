@@ -22,6 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $fullName    = trim($_POST['full_name']    ?? '');
 $email       = trim($_POST['email']        ?? '');
+$phone       = trim($_POST['phone']        ?? '');
+$gender      = strtolower(trim($_POST['gender'] ?? ''));
 $newPassword = trim($_POST['new_password'] ?? '');
 $photo       = $_FILES['photo'] ?? null;
 
@@ -33,10 +35,22 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     header('Location: ../profile.php?error=' . urlencode('Invalid email format'));
     exit;
 }
+// gender column is an ENUM('male','female','other') so reject anything else
+// (empty string is allowed and is stored as NULL meaning "prefer not to say")
+$allowedGenders = ['', 'male', 'female', 'other'];
+if (!in_array($gender, $allowedGenders, true)) {
+    header('Location: ../profile.php?error=' . urlencode('Invalid gender option'));
+    exit;
+}
 
 $pdo->beginTransaction();
 try {
-    $fields = ['full_name' => $fullName, 'email' => $email];
+    $fields = [
+        'full_name' => $fullName,
+        'email'     => $email,
+        'phone'     => $phone   !== '' ? $phone  : null,
+        'gender'    => $gender  !== '' ? $gender : null,
+    ];
 
     if ($newPassword !== '') {
         if (strlen($newPassword) < 6) {

@@ -36,7 +36,7 @@ elseif($type === "course"){
 
 // UN-ASSIGN COURSE (clear teacher_id, keep course)
 elseif($type === "assignment"){
-    $stmt = $conn->prepare("UPDATE courses SET teacher_id=NULL WHERE id=?");
+    $stmt = $conn->prepare("DELETE FROM course_assignment WHERE id=?");
     $stmt->execute([$id]);
 
     header("Location: view_assigned_courses.php");

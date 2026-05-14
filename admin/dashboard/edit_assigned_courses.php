@@ -3,11 +3,10 @@ session_start();
 include("../../config/db.php");
 if(!isset($_SESSION['admin'])){ header("Location: ../login.php"); exit; }
 
-// GET COURSE ID (assignment lives on the course row itself)
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// FETCH EXISTING ASSIGNMENT (= the course row)
-$stmt = $conn->prepare("SELECT id, name, teacher_id FROM courses WHERE id=?");
+// FETCH EXISTING ASSIGNMENT
+$stmt = $conn->prepare("SELECT ca.id, ca.course_id, ca.teacher_id, c.name FROM course_assignment ca JOIN courses c ON ca.course_id = c.id WHERE ca.id=?");
 $stmt->execute([$id]);
 $assignment = $stmt->fetch();
 
@@ -17,8 +16,8 @@ if(!$assignment){
 
 // UPDATE LOGIC
 if(isset($_POST['update'])){
-    $conn->prepare("UPDATE courses SET teacher_id=? WHERE id=?")
-         ->execute([$_POST['teacher'], $id]);
+    $conn->prepare("UPDATE course_assignment SET teacher_id=?, course_id=? WHERE id=?")
+         ->execute([$_POST['teacher'], $_POST['course'], $id]);
 
     header("Location: view_assigned_courses.php");
     exit();
@@ -34,8 +33,6 @@ $courses  = $conn->query("SELECT id, name FROM courses");
 <head>
 <meta charset="UTF-8">
 <title>Edit Assigned Courses</title>
-
-<!-- ✅ ADDED CSS LINK -->
 <link rel="stylesheet" href="../../assets/css/admin_style.css">
 
 <style>
@@ -125,7 +122,7 @@ button:hover {
     <form method="POST">
 
         <!-- Teacher -->
-        <label>Teacher’s Name</label>
+        <label>Teacher's Name</label>
         <select name="teacher" required>
             <?php while($t = $teachers->fetch()){ ?>
                 <option value="<?= $t['id'] ?>"
@@ -135,12 +132,12 @@ button:hover {
             <?php } ?>
         </select>
 
-        <!-- Course (read-only since the assignment IS the course) -->
+        <!-- Course -->
         <label>Assigned Course</label>
-        <select name="course" required disabled>
+        <select name="course" required>
             <?php while($c = $courses->fetch()){ ?>
                 <option value="<?= $c['id'] ?>"
-                    <?= ($c['id'] == $assignment['id']) ? 'selected' : '' ?>>
+                    <?= ($c['id'] == $assignment['course_id']) ? 'selected' : '' ?>>
                     <?= htmlspecialchars($c['name'] ?? '') ?>
                 </option>
             <?php } ?>

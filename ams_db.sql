@@ -128,6 +128,21 @@ CREATE TABLE `password_resets` (
   UNIQUE KEY `unique_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- ---------------------------------------------------------------------
+-- signup_verifications  —  holds pending student signups until the user
+-- confirms ownership of the email via a 6-digit OTP. Row is deleted as
+-- soon as the code is verified and the real `users` row is created.
+-- ---------------------------------------------------------------------
+CREATE TABLE `signup_verifications` (
+  `id`            INT(11)      NOT NULL AUTO_INCREMENT,
+  `email`         VARCHAR(150) NOT NULL,
+  `password_hash` VARCHAR(255) NOT NULL,
+  `code`          VARCHAR(6)   NOT NULL,
+  `created_at`    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- =====================================================================
 -- DEFAULT USERS  (passwords are bcrypt hashes — DO NOT edit by hand)
 -- =====================================================================
@@ -156,3 +171,10 @@ INSERT INTO `users` (`email`, `password`, `role`, `full_name`, `department`) VAL
 -- dashboard's "View Students" / grade entry has at least one row to show.
 INSERT INTO `students` (`student_no`, `full_name`, `email`, `group_name`) VALUES
 ('S0001', 'Default Student', 'student@ams.com', 'A');
+
+
+CREATE TABLE course_assignment (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    teacher_id INT NOT NULL
+);
